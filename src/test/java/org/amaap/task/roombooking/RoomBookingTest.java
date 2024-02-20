@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Scanner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 class RoomBookingTest {
     private RoomHandler roomHandler;
@@ -36,14 +40,31 @@ class RoomBookingTest {
 
     }
 
-//    @Test
-//    void shouldFreeRoomsIfDepartureTimeIsPassed() {
-//        Booking pastBooking = new Booking(1, "Room1", LocalDate.now().minusDays(1), LocalDate.now().minusDays(1));
-//        Room.rooms.add(new Room("Room1", false));
-//        // Add the past booking to the list of bookings
-//        RoomHandler.booking.add(pastBooking);
-//        roomHandler.makeRoomsFree();
-//        Assertions.assertTrue(Room.rooms.get(0).isStatus());
-//    }
+    @Test
+    void shouldNotAllowToBookRoomIfInvalidRoomName() {
+
+        String inputData = "Room18\n1\n01/02/2022\n01/03/2022\n";
+        InputStream in = new ByteArrayInputStream(inputData.getBytes());
+        System.setIn(in);
+        String result = roomHandler.bookNewRoom();
+        System.setIn(System.in);
+        assertTrue(result.contains("Invalid room name"));
+
+
+    }
+
+    @Test
+    void shouldFreeRooms() {
+
+        String result = roomHandler.makeRoomsFree();
+        assertEquals("Makes room freed", result);
+
+    }
+@Test
+    void shouldReturnFalseIfUserEntersInvalidClientIdType() {
+
+
+
+}
 
 }

@@ -37,9 +37,10 @@ public class RoomHandler {
         System.out.println("Enter room Name");
         String roomName = scanner.nextLine();
 
+        if (Room.rooms.contains(roomName)) return "Invalid room Name";
+
         System.out.println("Enter client id");
         int clientId = scanner.nextInt();
-
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         System.out.println("Enter your arrival Date dd/MM/yyyy:");
@@ -62,7 +63,7 @@ public class RoomHandler {
                 " You need to free room on/before " + departureDate);
     }
 
-    public void makeRoomsFree() {
+    public String makeRoomsFree() {
         Booking book = new Booking();
         for (Room room : Room.rooms) {
 
@@ -70,7 +71,7 @@ public class RoomHandler {
                 room.setStatus(true);
             }
         }
-
+        return "Makes room freed";
     }
 
 }

@@ -1,54 +1,54 @@
 package org.amaap.task.birthdayreminder;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Scanner;
 
 public class ReminderManager {
 
-      List<Friend> friendList = new ArrayList<>();
-      List<Friend> remList = new ArrayList<>();
-    public  void loadData(){
-        try{
+    List<Friend> friendList = new ArrayList<>();
+    List<Friend> remList = new ArrayList<>();
+
+    public void loadData() {
+        try {
             Connection con = DatabaseConnection.getDbConnection();
             String selectQuery = "SELECT fname, lname, birthDate, email FROM person";
 
-        PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
+            PreparedStatement preparedStatement = con.prepareStatement(selectQuery);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
-            String fname = resultSet.getString("fname");
-            String lname = resultSet.getString("lname");
-            LocalDate birthDate = resultSet.getDate("birthDate").toLocalDate();
-            String email = resultSet.getString("email");
-            LocalDate currentDate = LocalDate.now();
+            while (resultSet.next()) {
+                String fname = resultSet.getString("fname");
+                String lname = resultSet.getString("lname");
+                LocalDate birthDate = resultSet.getDate("birthDate").toLocalDate();
+                String email = resultSet.getString("email");
+                LocalDate currentDate = LocalDate.now();
 
-            Friend friend = new Friend(fname, lname, birthDate, email);
-            if (birthDate.getMonth() == currentDate.getMonth() &&
-                    birthDate.getDayOfMonth() == currentDate.getDayOfMonth()) {
-                friendList.add(friend);
+                Friend friend = new Friend(fname, lname, birthDate, email);
+                if (birthDate.getMonth() == currentDate.getMonth() &&
+                        birthDate.getDayOfMonth() == currentDate.getDayOfMonth()) {
+                    friendList.add(friend);
+                } else {
+                    remList.add(friend);
+                }
             }
-            else {
-                remList.add(friend);
-            }
+        } catch (SQLException e) {
+            System.err.println("Error interacting with the database: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.err.println("Error interacting with the database: " + e.getMessage());
-    }
 
     }
 
-    public  void checkBirthday() {
+    public String checkBirthday() {
         String remSubject = "Birthday Reminder";
         String greetSubject = "Happy birthday!";
 
@@ -60,7 +60,7 @@ public class ReminderManager {
                 sendGreetings(greetSubject, greetMessage, bEmail);
             }
         } else {
-            System.out.println("No one has their birthday today.");
+            return "No ones having birthday today";
         }
 
         if (!remList.isEmpty()) {
@@ -76,15 +76,22 @@ public class ReminderManager {
                 sendGreetings(remSubject, remMessage, bEmail);
             }
         } else {
-            System.out.println("No reminders for today.");
+            return "No ones having birthday today";
+
         }
+        return "No ones having birthday today";
+
+
     }
 
 
-    public  void sendGreetings(String subject,String body,String bEmail){
+    public String sendGreetings(String subject, String body, String bEmail) {
+
+        if (bEmail.isEmpty()) return "One recipient should be provide";
+        if (subject.isEmpty() || body.isEmpty()) return "Please check subject or Body";
         String fromEmail = "sudhirtakale99@gmail.com";
         String toEmail = bEmail;
-        String password="vvye muxc nawq phgy";
+        String password = "vvye muxc nawq phgy";
 
 
         String host = "127.0.0.1";
@@ -117,9 +124,12 @@ public class ReminderManager {
         } catch (MessagingException e) {
             System.err.println("Error sending email: " + e.getMessage());
         }
+
+
+        return "Email Sent Successfully";
     }
 
-    public  String addBirthday(){
+    public String addBirthday() throws RuntimeException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter First Name");
         String fname = scanner.next();
@@ -140,9 +150,9 @@ public class ReminderManager {
 
             stmt.executeUpdate(insertQuery);
 
-            return"Record inserted successfully.";
+            return "Record inserted successfully.";
 
-        }  catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

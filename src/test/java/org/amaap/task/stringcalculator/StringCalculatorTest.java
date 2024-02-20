@@ -30,13 +30,6 @@ class StringCalculatorTest {
         assertEquals(expected, result);
     }
 
-//    @Test
-//    void shouldReturnNegativeNumbersFoundIfPresent() {
-//        String input = "1,-3,5";
-//        String expected = "Sum is : 3.0\nErrors:\nNegative not allowed: -3\n";
-//        String result = StringCalculator.add(input).replace(":-", ":");
-//        assertEquals(expected, result);
-//    }
 
     @Test
     void shouldReturnSumOfNumbersPresentInNumberString() {

@@ -1,19 +1,60 @@
 package org.amaap.task.birthdayreminder;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 
 class ReminderManagerTest {
 
     ReminderManager reminderManager = new ReminderManager();
+
+
+    @Test
+    void shouldCheckWhetherGotConnectionObjectOrNot() throws SQLException {
+
+        Connection con = null;
+        con = DatabaseConnection.getDbConnection();
+        assertNotNull(con);
+
+    }
+
+    @Test
+    void shouldReturnTrueWhenSuccessfullySendingEmail() throws SQLException {
+        String result = reminderManager.sendGreetings("Hello", "How are you today", "shtakale1111@gmail.com");
+        String expected = "Email Sent Successfully";
+        Assertions.assertEquals(expected, result);
+    }
+
+
+    @Test
+    void shouldNotSendGreetingsWithNullSubjectOrBody() {
+        // Mocking the sendGreetings method with null subject or body
+        String subject = "";
+        String body = "";
+        String Email = "sudhirtakale99@gmail.com";
+
+
+        String result = reminderManager.sendGreetings(subject, "how", Email);
+        assertEquals("Please check subject or Body", result);
+
+        String newResult = reminderManager.sendGreetings("subject", body, Email);
+        assertEquals("Please check subject or Body", newResult);
+    }
+
+
+    @Test
+    void shouldReturnFalseIfNoOnehavingBirthDayToday() {
+        LocalDate d = LocalDate.now();
+        assertEquals("No ones having birthday today", reminderManager.checkBirthday());
+    }
 
     @Test
     void shouldNotLoadDataWithInvalidDatabaseConnection() {
@@ -41,6 +82,14 @@ class ReminderManagerTest {
         String result = reminderManager.addBirthday();
         assertEquals("Record inserted successfully.", result);
         System.setIn(System.in);
+
+    }
+
+    @Test
+    void shouldReturnErrorIfRecipientNotProvided() {
+
+        String result = reminderManager.sendGreetings("hii", "Hello", " ");
+        assertEquals("One recipient should be provide", result);
 
     }
 
