@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StringCalculatorTest {
 
+
+
+
+
+
     @Test
     void shouldAddANewStringAndReturnSum() {
         String input = "1,2,2";

@@ -78,4 +78,10 @@ public class StringCalculator {
         }
         return sum;
     }
+
+    public static class StringCalculatorTDD {
+    }
+
+    public static class ModernStringCalculator {
+    }
 }
