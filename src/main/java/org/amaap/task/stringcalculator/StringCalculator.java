@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
-
     static String add(String number) {
-
         String delimiter = ",";
         ArrayList<String> negativeNum = new ArrayList<>();
         ArrayList<String> errors = new ArrayList<>();
@@ -18,7 +16,8 @@ public class StringCalculator {
         number = number.trim();
 
         if (number.startsWith("//")) {
-            int delimiterEndIndex = number.indexOf("\n");
+            int i = number.indexOf("\n");
+            int delimiterEndIndex = i;
             delimiter = number.substring(2, delimiterEndIndex);
             number = number.substring(delimiterEndIndex + 1);
         }
@@ -79,9 +78,4 @@ public class StringCalculator {
         return sum;
     }
 
-    public static class StringCalculatorTDD {
-    }
-
-    public static class ModernStringCalculator {
-    }
 }

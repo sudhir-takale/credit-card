@@ -1,0 +1,23 @@
+----------- Lowest Hanging Fruits -----------
+
+1) String Calculator 
+	
+	- If input string is empty then return zero
+	1) shouldReturnZeroIfInputStringIsEmpty(String i/p){}
+
+2) BirthDay Reminder
+	
+	- If input string is empty then return zero
+	1) shouldAbleCreateFriends(){}
+
+
+1) Room Booking
+	
+	- Check for available rooms in Hotel
+	1) shouldReturnAllFreeRoom(){}
+
+
+1) Fizz Buzz
+	
+	- If input limit is less than equal to zero
+	1) shouldReturnEmptyListIfLimitIsLessThanEqualToZero(int limit){}
