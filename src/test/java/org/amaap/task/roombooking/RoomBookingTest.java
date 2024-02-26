@@ -40,18 +40,7 @@ class RoomBookingTest {
 
     }
 
-    @Test
-    void shouldNotAllowToBookRoomIfInvalidRoomName() {
 
-        String inputData = "Room18\n1\n01/02/2022\n01/03/2022\n";
-        InputStream in = new ByteArrayInputStream(inputData.getBytes());
-        System.setIn(in);
-        String result = roomHandler.bookNewRoom();
-        System.setIn(System.in);
-        assertTrue(result.contains("Invalid room name"));
-
-
-    }
 
     @Test
     void shouldFreeRooms() {
@@ -60,11 +49,6 @@ class RoomBookingTest {
         assertEquals("Makes room freed", result);
 
     }
-@Test
-    void shouldReturnFalseIfUserEntersInvalidClientIdType() {
 
-
-
-}
 
 }

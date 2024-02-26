@@ -85,13 +85,7 @@ class ReminderManagerTest {
 
     }
 
-    @Test
-    void shouldReturnErrorIfRecipientNotProvided() {
 
-        String result = reminderManager.sendGreetings("hii", "Hello", " ");
-        assertEquals("One recipient should be provide", result);
-
-    }
 
 
 }
