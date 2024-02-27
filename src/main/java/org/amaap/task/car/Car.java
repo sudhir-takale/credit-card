@@ -19,6 +19,15 @@ public class Car {
 
     }
 
+    public static void main(String[] args) throws OverFlowException, InsufficientFuelException {
+        Car car = new Car(40, 12);
+        System.out.println(car.getFuelInLiter());
+        System.out.println(car.refill(30));
+        System.out.println(car.getDistanceCovered());
+        System.out.println("FuelInLiter after driving 240km : " + car.drive(240) + " l");
+        System.out.println(car.distanceToEmpty(car.getFuelInLiter(), car.getAvg()) + " km");
+    }
+
     public int getFuelCapacity() {
         return fuelCapacity;
     }
@@ -72,12 +81,4 @@ public class Car {
 
     }
 
- /*  public static void main(String[] args) throws overFlowException {
-        Car car = new Car(40,12);
-        System.out.println(car.getFuelInLiter());
-        System.out.println(car.refill(30));
-        System.out.println(car.getDistanceCovered());
-        System.out.println("FuelInLiter after driving 240km : "+car.drive(240)+" l");
-        System.out.println(car.distanceToEmpty(car.getFuelInLiter(), car.getAvg())+" km");
- */
 }
