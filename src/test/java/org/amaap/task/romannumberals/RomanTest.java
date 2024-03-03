@@ -15,7 +15,15 @@ public class RomanTest {
         assertThrows(IllegalInputException.class, () ->
                 roman.convert(0)
         );
+    }
 
+    @Test
+    void shouldThrowExceptionIfInputIsGreaterThanTenThousand() throws Exception {
+
+        Roman roman = new Roman();
+        assertThrows(IllegalInputException.class, () ->
+                roman.convert(10000)
+        );
     }
 
     @Test

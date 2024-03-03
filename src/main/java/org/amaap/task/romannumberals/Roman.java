@@ -5,7 +5,7 @@ public class Roman {
 
     public String convert(int number) throws Exception {
 
-        if (number <= 0) throw new IllegalInputException("Input is not valid");
+        if (number <= 0 || number > 9999) throw new IllegalInputException("Input is not valid");
 
         StringBuilder sb = new StringBuilder();
 
