@@ -9,13 +9,9 @@ public class CustomerTest {
     @Test
     void shouldBeAbleToCreateCustomer() {
 
-        boolean result = Customer.createNewCustomer(1, "Sudhir T", "Sudhirtakale99@gmail.com");
-        Assertions.assertTrue(result);
+        Customer result = Customer.createNewCustomer(1, "Sudhir T", "Sudhirtakale99@gmail.com");
+        Assertions.assertNotNull(result);
     }
-
-
-
-
 
 
 }

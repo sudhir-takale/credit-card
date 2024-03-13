@@ -19,9 +19,9 @@ public class Customer {
     }
 
 
-
-    public static boolean createNewCustomer(int id, String name, String email) {
+    public static Customer createNewCustomer(int id, String name, String email) {
         Customer customer = new Customer(id, name, email);
-        return true;
+        return customer;
+
     }
 }
