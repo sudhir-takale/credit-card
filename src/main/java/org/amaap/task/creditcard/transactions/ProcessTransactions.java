@@ -72,5 +72,13 @@ public class ProcessTransactions {
         return currentMonthTransactions.stream()
                 .collect(Collectors.groupingBy(Transaction::getCategory));
     }
+
+
+    public Map<String, List<Transaction>> groupTransactionsByCategoryOfLastMonth() {
+        List<Transaction> lastMonthTransactions = getCurrrentMonthTransactions();
+
+        return lastMonthTransactions.stream()
+                .collect(Collectors.groupingBy(Transaction::getCategory));
+    }
 }
 
