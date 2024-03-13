@@ -13,7 +13,7 @@ import static org.amaap.task.creditcard.domain.Customer.transactions;
 public class ProcessTransactions {
     private Customer customer;
 
-    ProcessTransactions(Customer customer) {
+    public ProcessTransactions(Customer customer) {
         this.customer = customer;
     }
 
