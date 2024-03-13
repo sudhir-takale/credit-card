@@ -56,29 +56,33 @@ public class ProcessTransactions {
 
         return totalAmount;
     }
+
     public List<Transaction> getCurrrentMonthTransactions() {
         return transactions.stream().filter((x) -> x.getDateOfTransaction().getMonth() ==
                 LocalDate.now().getMonth()).collect(Collectors.toList());
     }
+
     public List<Transaction> getTransactionsOfLastMonth() {
         return transactions.stream().filter((x) -> x.getDateOfTransaction().getMonth()
                         == LocalDate.now().minusMonths(1).getMonth()).
                 collect(Collectors.toList());
     }
-    public Map<String, List<Transaction>> groupTransactionsByCategoryOfCurrentMonth() {
+
+    public Map<String, Integer> groupTransactionsByCategoryOfCurrentMonth() {
         List<Transaction> currentMonthTransactions = getCurrrentMonthTransactions();
 
-
         return currentMonthTransactions.stream()
-                .collect(Collectors.groupingBy(Transaction::getCategory));
+                .collect(Collectors.groupingBy(Transaction::getCategory,
+                        Collectors.summingInt(Transaction::getAmount)));
     }
 
 
-    public Map<String, List<Transaction>> groupTransactionsByCategoryOfLastMonth() {
-        List<Transaction> lastMonthTransactions = getCurrrentMonthTransactions();
+    public Map<String, Integer> groupTransactionsByCategoryOfLastMonth() {
+        List<Transaction> lastMonthTransactions = getTransactionsOfLastMonth();
 
         return lastMonthTransactions.stream()
-                .collect(Collectors.groupingBy(Transaction::getCategory));
+                .collect(Collectors.groupingBy(Transaction::getCategory,
+                        Collectors.summingInt(Transaction::getAmount)));
     }
 }
 

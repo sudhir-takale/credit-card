@@ -93,20 +93,30 @@ public class ProcessTransactionsTest {
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
 
-        Map<String, List<Transaction>> transactions = processTransaction.groupTransactionsByCategoryOfCurrentMonth();
+        Map<String, Integer> transactions = processTransaction.groupTransactionsByCategoryOfCurrentMonth();
+        for (Map.Entry<String, Integer> entry : transactions.entrySet()) {
+            System.out.println("Category: " + entry.getKey());
+            System.out.println("Total Amount: " + entry.getValue());
+            System.out.println("-------------------------");
+        }
         Assertions.assertEquals(2, transactions.size());
     }
 
     @Test
     void shouldAbleToGroupTransactionsByCategoryOfLastMonth() {
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
-        Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "travel", creditCard, 20);
+        Transaction.makeTransaction(2, LocalDate.parse("2024-02-14"), "travel", creditCard, 20);
         Transaction.makeTransaction(2, LocalDate.parse("2024-01-13"), "shopping", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
 
-        Map<String, List<Transaction>> transactions = processTransaction.groupTransactionsByCategoryOfLastMonth();
+        Map<String, Integer> transactions = processTransaction.groupTransactionsByCategoryOfLastMonth();
+        for (Map.Entry<String, Integer> entry : transactions.entrySet()) {
+            System.out.println("Category: " + entry.getKey());
+            System.out.println("Total Amount: " + entry.getValue());
+            System.out.println("-------------------------");
+        }
         Assertions.assertEquals(2, transactions.size());
     }
 
