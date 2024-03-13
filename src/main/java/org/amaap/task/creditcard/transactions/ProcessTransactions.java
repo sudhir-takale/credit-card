@@ -5,6 +5,7 @@ import org.amaap.task.creditcard.domain.Customer;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.amaap.task.creditcard.domain.Customer.transactions;
@@ -54,20 +55,6 @@ public class ProcessTransactions {
                 .sum();
 
         return totalAmount;
-    }
-
-    public List<Transaction> getTransactionsOfLastMonth() {
-        LocalDate currentDate = LocalDate.now();
-
-        LocalDate firstDayOfLastMonth = currentDate.minus(Period.ofMonths(1)).withDayOfMonth(1);
-
-        LocalDate lastDayOfLastMonth = currentDate.minus(Period.ofMonths(1));
-
-        return transactions.stream()
-                .filter(transaction ->
-                        !transaction.getDateOfTransaction().isBefore(firstDayOfLastMonth) &&
-                                !transaction.getDateOfTransaction().isAfter(lastDayOfLastMonth))
-                .collect(Collectors.toList());
     }
 
 }

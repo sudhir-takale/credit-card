@@ -33,7 +33,9 @@ public class Transaction {
         return transaction;
     }
 
-;    public CreditCard getCreditCard() {
+    ;
+
+    public CreditCard getCreditCard() {
         return creditCard;
     }
 
@@ -53,6 +55,15 @@ public class Transaction {
         return amount;
     }
 
-
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", dateOfTransaction=" + dateOfTransaction +
+                ", category='" + category + '\'' +
+                ", creditCard=" + creditCard +
+                ", amount=" + amount +
+                '}';
+    }
 }
 
