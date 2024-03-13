@@ -2,8 +2,7 @@ package org.amaap.task.creditcard;
 
 import org.amaap.task.creditcard.domain.CreditCard;
 import org.amaap.task.creditcard.domain.Customer;
-import org.amaap.task.creditcard.domain.exceptions.InvalidCardNumberException;
-import org.amaap.task.creditcard.domain.exceptions.NullCustomerException;
+import org.amaap.task.creditcard.domain.exceptions.*;
 
 public class CreditCardManager {
 
@@ -16,7 +15,7 @@ public class CreditCardManager {
         this.creditCard = creditCard;
     }
 
-    public Customer createCustomer(int id, String name, String email) {
+    public Customer createCustomer(int id, String name, String email) throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         return Customer.createNewCustomer(id, name, email);
 
     }

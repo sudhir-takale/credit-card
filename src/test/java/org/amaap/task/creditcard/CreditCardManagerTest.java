@@ -2,8 +2,7 @@ package org.amaap.task.creditcard;
 
 import org.amaap.task.creditcard.domain.CreditCard;
 import org.amaap.task.creditcard.domain.Customer;
-import org.amaap.task.creditcard.domain.exceptions.InvalidCardNumberException;
-import org.amaap.task.creditcard.domain.exceptions.NullCustomerException;
+import org.amaap.task.creditcard.domain.exceptions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +26,7 @@ public class CreditCardManagerTest {
     CreditCardManager creditCardManager;
 
     @Test
-    void shouldAbleToCreateNewCustomer() {
+    void shouldAbleToCreateNewCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
 
 //        when(Customer.createNewCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com")).thenReturn(true);
         Customer user = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
@@ -44,6 +43,11 @@ public class CreditCardManagerTest {
 
         Assertions.assertTrue(result);
     }
+
+
+
+
+
 
 
 }
