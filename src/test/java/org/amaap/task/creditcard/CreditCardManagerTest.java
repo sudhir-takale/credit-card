@@ -1,5 +1,6 @@
 package org.amaap.task.creditcard;
 
+import org.amaap.task.creditcard.alerts.EmailHandler;
 import org.amaap.task.creditcard.domain.CreditCard;
 import org.amaap.task.creditcard.domain.Customer;
 import org.amaap.task.creditcard.domain.exceptions.*;
@@ -31,7 +32,7 @@ public class CreditCardManagerTest {
     @Mock
     UnusualSpendAnalyzer unusualSpendAnalyzer;
     @Mock
-    EmailHadler emailHadler;
+    EmailHandler emailHandler;
 
     @InjectMocks
     CreditCardManager creditCardManager;
@@ -48,8 +49,7 @@ public class CreditCardManagerTest {
     }
 
     @Test
-    void shouldBeAbleToCreateACreditCardForCustomer() throws InvalidCardNumberException, NullCustomerException, InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-        Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
+    void shouldBeAbleToCreateACreditCardForCustomer() throws NullCustomerException, InvalidCardNumberException {
         when(creditCard.createNewCreditCard(1212, customer)).thenReturn(true);
         boolean result = creditCardManager.createNewCreditCard(1212, customer);
 
@@ -58,7 +58,7 @@ public class CreditCardManagerTest {
 
 
     @Test
-    void shouldReturnAllTransactions() throws Exception, InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException, InvalidCardNumberException, NullCustomerException {
+    void shouldReturnAllTransactions() throws  InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
         CreditCard card = new CreditCard(1212, newCustomer);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", card, 12);
@@ -69,9 +69,7 @@ public class CreditCardManagerTest {
     }
 
     @Test
-    void shouldBeAbleToCheckWhetherThereIsAnyUnusualSpendOrNot() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-        Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
-        CreditCard card = new CreditCard(1212, newCustomer);
+    void shouldBeAbleToCheckWhetherThereIsAnyUnusualSpendOrNot()  {
 
         when(unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth()).thenReturn(true);
         boolean result = creditCardManager.checkForUnusualSpend();
@@ -80,11 +78,9 @@ public class CreditCardManagerTest {
     }
 
     @Test
-    void shouldAbleToFilterCategoriesWhichHasUnusualSpending() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-        Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
-        CreditCard card = new CreditCard(1212, newCustomer);
+    void shouldAbleToFilterCategoriesWhichHasUnusualSpending()  {
         when(unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth()).thenReturn(true);
-        when(unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual()).thenReturn(new HashMap<String, Integer>());
+        when(unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual()).thenReturn(new HashMap<>());
 
         Map<String, Integer> result = creditCardManager.categoriesInWhichSpendingIsUnusual();
 
@@ -93,7 +89,17 @@ public class CreditCardManagerTest {
         verify(unusualSpendAnalyzer, times(1)).categoriesInWhichSpendingIsUnusual();
     }
 
+    @Test
+    void shouldAbleToSendEmailMessageToCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
 
+        when(unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth()).thenReturn(true);
+        when(creditCardManager.categoriesInWhichSpendingIsUnusual()).thenReturn(new HashMap<>());
 
+        Customer customer1 = Customer.createNewCustomer(1, "sudhir t", "Sudhir@gmail.com");
 
+        verify(emailHandler, never()).sendEmailToCustomer(new HashMap<>(), customer1);
+
+        creditCardManager.sendMessageToCustomer(customer1);
+
+    }
 }

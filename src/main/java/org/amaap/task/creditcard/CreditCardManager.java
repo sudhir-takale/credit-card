@@ -1,5 +1,6 @@
 package org.amaap.task.creditcard;
 
+import org.amaap.task.creditcard.alerts.EmailHandler;
 import org.amaap.task.creditcard.domain.CreditCard;
 import org.amaap.task.creditcard.domain.Customer;
 import org.amaap.task.creditcard.domain.exceptions.*;
@@ -16,11 +17,14 @@ public class CreditCardManager {
     private final Customer customer;
     private final CreditCard creditCard;
     private final UnusualSpendAnalyzer unusualSpendAnalyzer;
+    private final EmailHandler emailHandler;
 
-    public CreditCardManager(Customer customer, CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer) {
+    public CreditCardManager(Customer customer, CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer, EmailHandler emailHandler) {
         this.customer = customer;
         this.creditCard = creditCard;
+
         this.unusualSpendAnalyzer = unusualSpendAnalyzer;
+        this.emailHandler = emailHandler;
     }
 
     public Customer createCustomer(int id, String name, String email) throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
@@ -50,5 +54,13 @@ public class CreditCardManager {
             result = unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual();
         }
         return result;
+    }
+
+    public void sendMessageToCustomer(Customer customer) {
+        Map<String, Integer> categories = categoriesInWhichSpendingIsUnusual();
+        if (!categories.isEmpty()) {
+            emailHandler.sendEmailToCustomer(categories,customer);
+        }
+
     }
 }

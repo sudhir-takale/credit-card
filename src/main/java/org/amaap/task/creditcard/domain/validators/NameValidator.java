@@ -12,7 +12,7 @@ public class NameValidator {
     }
 
     private static boolean checkIfNameIsValid(String name) {
-        return !(name.matches(".*\\d.*") || name.matches(".*[!@#$%^&*()_+{}|:\"<>?/\\[\\];',./\\\\-].*"));
+        return !(name.matches(".*\\d.*") || name.matches(".*[!@#$%^&*()_+{}|:\"<>?/\\[\\];',.\\\\-].*"));
     }
 
 }

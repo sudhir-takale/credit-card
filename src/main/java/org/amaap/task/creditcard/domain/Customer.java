@@ -50,10 +50,17 @@ public class Customer {
         return true;
     }
 
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
+    public int getCustomerId() {
+        return customerId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
     public List<Transaction> getTransactions() {
         return transactions;
