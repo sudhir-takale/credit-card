@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public class UnusualSpendAnalyzerTest {
     Customer customer;
@@ -50,9 +51,8 @@ public class UnusualSpendAnalyzerTest {
         Transaction.makeTransaction(1, LocalDate.now(), "shopping", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 50);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
-
-        int map = unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual();
-        Assertions.assertEquals(0, map);
+        Map<String, Integer> result = unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual();
+        Assertions.assertEquals(0, result.size());
     }
 
 }

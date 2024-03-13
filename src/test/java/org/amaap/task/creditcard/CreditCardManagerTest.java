@@ -13,9 +13,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +30,8 @@ public class CreditCardManagerTest {
     CreditCard creditCard;
     @Mock
     UnusualSpendAnalyzer unusualSpendAnalyzer;
+    @Mock
+    EmailHadler emailHadler;
 
     @InjectMocks
     CreditCardManager creditCardManager;
@@ -75,7 +79,19 @@ public class CreditCardManagerTest {
         Assertions.assertTrue(result);
     }
 
+    @Test
+    void shouldAbleToFilterCategoriesWhichHasUnusualSpending() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+        Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
+        CreditCard card = new CreditCard(1212, newCustomer);
+        when(unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth()).thenReturn(true);
+        when(unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual()).thenReturn(new HashMap<String, Integer>());
 
+        Map<String, Integer> result = creditCardManager.categoriesInWhichSpendingIsUnusual();
+
+        Assertions.assertEquals(new HashMap<>(), result);
+
+        verify(unusualSpendAnalyzer, times(1)).categoriesInWhichSpendingIsUnusual();
+    }
 
 
 

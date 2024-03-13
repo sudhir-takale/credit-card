@@ -25,12 +25,12 @@ public class UnusualSpendAnalyzer {
 
     }
 
-    public int categoriesInWhichSpendingIsUnusual() {
+    public Map<String, Integer> categoriesInWhichSpendingIsUnusual() {
         Map<String, Integer> currentMonthSpending = processTransactions.groupTransactionsByCategoryOfCurrentMonth();
         Map<String, Integer> lastMonthSpending = processTransactions.groupTransactionsByCategoryOfLastMonth();
 
         Map<String, Integer> unusualMonthSpending = calculateUnusualMonthSpending(currentMonthSpending, lastMonthSpending);
-        return 0;
+        return unusualMonthSpending;
     }
 
     private Map<String, Integer> calculateUnusualMonthSpending(Map<String, Integer> currentMonthSpending, Map<String, Integer> lastMonthSpending) {
@@ -53,7 +53,6 @@ public class UnusualSpendAnalyzer {
 
         return unusualCategories;
     }
-
 
 
 }

@@ -6,7 +6,9 @@ import org.amaap.task.creditcard.domain.exceptions.*;
 import org.amaap.task.creditcard.spendinganalyzer.UnusualSpendAnalyzer;
 import org.amaap.task.creditcard.transactions.Transaction;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CreditCardManager {
 
@@ -40,5 +42,13 @@ public class CreditCardManager {
 
     public boolean checkForUnusualSpend() {
         return unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth();
+    }
+
+    public Map<String, Integer> categoriesInWhichSpendingIsUnusual() {
+        Map<String, Integer> result = new HashMap<>();
+        if (checkForUnusualSpend()) {
+            result = unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual();
+        }
+        return result;
     }
 }
