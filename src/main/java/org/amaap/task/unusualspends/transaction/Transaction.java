@@ -3,6 +3,7 @@ package org.amaap.task.unusualspends.transaction;
 import org.amaap.task.unusualspends.domain.CreditCard;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Transaction {
 
@@ -19,6 +20,8 @@ public class Transaction {
         this.creditCard = creditCard;
         this.amount = amount;
     }
+
+
 
     public int getAmount() {
         return amount;
@@ -39,4 +42,24 @@ public class Transaction {
     public CreditCard getCreditCard() {
         return creditCard;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return getTransactionId() == that.getTransactionId() &&
+                Objects.equals(getDateOfTransaction(), that.getDateOfTransaction()) &&
+                Objects.equals(getCategory(), that.getCategory()) &&
+                Objects.equals(getCreditCard(), that.getCreditCard()) &&
+                getAmount() == that.getAmount();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTransactionId(), getDateOfTransaction(), getCategory(), getCreditCard(), getAmount());
+    }
+
+
 }

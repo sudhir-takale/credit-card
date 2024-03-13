@@ -3,7 +3,6 @@ package org.amaap.task.unusualspends.domain;
 public class CreditCard {
     private int cardNumber;
     private String customerName;
-
     public CreditCard(int cardNumber, String customerName) {
         this.cardNumber = cardNumber;
         this.customerName = customerName;
@@ -16,4 +15,5 @@ public class CreditCard {
     public String getCustomerName() {
         return customerName;
     }
+
 }
