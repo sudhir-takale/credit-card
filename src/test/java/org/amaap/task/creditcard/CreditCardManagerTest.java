@@ -2,6 +2,8 @@ package org.amaap.task.creditcard;
 
 import org.amaap.task.creditcard.domain.CreditCard;
 import org.amaap.task.creditcard.domain.Customer;
+import org.amaap.task.creditcard.domain.exceptions.InvalidCardNumberException;
+import org.amaap.task.creditcard.domain.exceptions.NullCustomerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +37,7 @@ public class CreditCardManagerTest {
     }
 
     @Test
-    void shouldBeAbleToCreateACreditCardForCustomer() {
+    void shouldBeAbleToCreateACreditCardForCustomer() throws InvalidCardNumberException, NullCustomerException {
 //        Customer newCustomer = creditCardManager.createCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
         when(creditCard.createNewCreditCard(1212, customer)).thenReturn(true);
         boolean result = creditCardManager.createNewCreditCard(1212, customer);
