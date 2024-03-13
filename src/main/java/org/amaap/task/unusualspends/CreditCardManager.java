@@ -17,14 +17,6 @@ public class CreditCardManager {
     }
 
 
-    public void checkAndSendEmailAlert(String userEmail) {
-        if (unusualSpendsAnalyzer.isSpendingHigherThanUsual()) {
-            String emailSubject = "Unusual Spending Detected!";
-            String emailBody = unusualSpendsAnalyzer.categoriesInWhichSpentWasUnusual();
-            EmailHandler.sendEmailAlert(emailSubject, emailBody, userEmail);
-        } else {
-            System.out.println("No unusual spending detected.");
-        }
-    }
+
 
 }

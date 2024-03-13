@@ -19,7 +19,7 @@ public class UnusualSpendsAnalyzer {
         return totalAmountSpentThisMonth >= threshold * totalAmountSpentLastMonth;
     }
 
-    public String categoriesInWhichSpentWasUnusual() {
+    public void categoriesInWhichSpentWasUnusual() {
         Map<String, Double> currentMonthSpending = transactions.groupAndCalculateTotal();
         Map<String, Double> previousMonthSpending = transactions.groupTransactionsByCategoryOfPreviousMonth().values().stream()
                 .flatMap(List::stream)
@@ -35,13 +35,14 @@ public class UnusualSpendsAnalyzer {
                     .mapToDouble(category -> Double.parseDouble(category.split(" ")[5]))
                     .sum();
 
-            return String.format("Unusual spending of %.2f detected!\n" +
+            String message = String.format("Unusual spending of %.2f detected!\n" +
                             "Hello User!\n\n" +
                             "We have detected unusually high spending on your card in these categories:\n%s\n\nThanks,\n\nThe Credit Card Company",
                     totalUnusualSpending, String.join("\n", unusualCategories));
 
+        EmailHandler.sendEmailAlert("Detected",message, "sudhrtakale99@gmail.com");
         }
 
-        return "Not Found";
+
     }
 }
