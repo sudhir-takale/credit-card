@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Customer {
 
-    List<Transaction> transactions;
+   public static List<Transaction> transactions;
     private int customerId;
     private String name;
     private String emailAddress;
@@ -24,6 +24,8 @@ public class Customer {
         transactions = new ArrayList<>();
     }
 
+   public Customer() {
+    }
 
     public static Customer createNewCustomer(int id, String name, String email) throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         if (!validateId(id)) {
@@ -48,5 +50,13 @@ public class Customer {
         return true;
     }
 
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
 }
