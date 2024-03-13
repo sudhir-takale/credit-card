@@ -5,7 +5,6 @@ import org.amaap.task.creditcard.domain.Customer;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.amaap.task.creditcard.domain.Customer.transactions;
@@ -56,6 +55,9 @@ public class ProcessTransactions {
 
         return totalAmount;
     }
-
+    public List<Transaction> getCurrrentMonthTransactions() {
+        return transactions.stream().filter((x) -> x.getDateOfTransaction().getMonth() ==
+                LocalDate.now().getMonth()).collect(Collectors.toList());
+    }
 }
 
