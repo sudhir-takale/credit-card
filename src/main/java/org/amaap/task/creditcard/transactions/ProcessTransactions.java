@@ -59,5 +59,10 @@ public class ProcessTransactions {
         return transactions.stream().filter((x) -> x.getDateOfTransaction().getMonth() ==
                 LocalDate.now().getMonth()).collect(Collectors.toList());
     }
+    public List<Transaction> getTransactionsOfLastMonth() {
+        return transactions.stream().filter((x) -> x.getDateOfTransaction().getMonth()
+                        == LocalDate.now().minusMonths(1).getMonth()).
+                collect(Collectors.toList());
+    }
 }
 
