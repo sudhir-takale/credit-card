@@ -18,11 +18,10 @@ public class EmailHandler {
 
     public void sendEmailAlert(String subject, String body, String recipientEmail) {
 
-        if (recipientEmail.isEmpty()) return;
-        if (subject.isEmpty() || body.isEmpty()) return;
+      EmailValidator.validateEmail(subject, body, recipientEmail);
+
         String fromEmail = "sudhirtakale99@gmail.com";
         String password = "vvye muxc nawq phgy";
-
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -87,8 +86,6 @@ public class EmailHandler {
 
             sendEmailAlert(subject, emailContent.toString(), customer.getEmailAddress());
         }
-
-
     }
 
 

@@ -18,6 +18,34 @@ class EmailHandlerTest {
         emailHandler = new EmailHandler();
     }
 
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfEmptySubjectPassed() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> emailHandler.sendEmailAlert("", "Body content", "abc@mail,com"));
+
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfEmptyBodyPassed() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> emailHandler.sendEmailAlert("subject", "", "abc@mail,com"));
+
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfEmptyRecipientPassed() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> emailHandler.sendEmailAlert("subject", "Body content", ""));
+
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfEmailIsNotCorrect() {
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> emailHandler.sendEmailAlert("subject", "Body content", "sudhir.t"));
+    }
+
     @Test
     void shouldSendAlertIfValidParametersPassed() {
         String subject = "Test Subject";
@@ -37,4 +65,6 @@ class EmailHandlerTest {
 
         Assertions.assertEquals(450, emailHandler.getTotalAmount(spendingMap));
     }
+
+
 }
