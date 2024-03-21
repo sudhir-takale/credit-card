@@ -11,6 +11,8 @@ import javax.mail.internet.MimeMessage;
 import java.util.Map;
 import java.util.Properties;
 
+import static com.amaap.creditcard.alerts.EmailValidator.validate;
+
 public class EmailHandler {
 
 
@@ -20,7 +22,6 @@ public class EmailHandler {
         if (subject.isEmpty() || body.isEmpty()) return;
         String fromEmail = "sudhirtakale99@gmail.com";
         String password = "vvye muxc nawq phgy";
-
 
 
         Properties properties = new Properties();
@@ -56,33 +57,46 @@ public class EmailHandler {
     }
 
     public void sendEmailToCustomer(Map<String, Integer> map, Customer customer) {
+
+        EmailCreator emailCreator = createCustomEmail();
         StringBuilder emailContent = new StringBuilder();
+
         emailContent.append("Unusual spending of Rs").append(getTotalAmount(map)).append(" detected!\n\n");
         emailContent.append("Hello ").append(customer.getName()).append("!\n\n");
-        emailContent.append("We have detected unusually high spending on your card in these categories:\n\n");
+        emailContent.append("Hello ").append(customer.getName()).append("!\n\n");
+
+        String body = "We have detected unusually high spending on your card in these categories:";
+        if (!emailCreator.getBodyContent().isEmpty()) body = emailCreator.getBodyContent();
+        emailContent.append(body).append("\n\n");
 
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             emailContent.append("* You spent Rs").append(entry.getValue()).append(" on ").append(entry.getKey()).append("\n");
         }
-        emailContent.append("\nThanks,\n\nThe Credit Card Company");
+        String footer = "\nThanks,\n\nThe Credit Card Company";
+        if (!emailCreator.getFooter().isEmpty()) {
+            footer = emailCreator.getFooter();
+        }
 
+        emailContent.append("\n Thanks,\n\n").append(footer);
+        String subject = "Unusual Spending of this month";
 
-        if (validateData("Unusual Spending of this month", emailContent.toString(), customer.getEmailAddress())) {
+        if (!emailCreator.getSubject().isEmpty()) {
+            subject = emailCreator.getSubject();
+        }
+        if (validate(subject, emailContent.toString(), customer.getEmailAddress())) {
 
-            sendEmailAlert("Unusual Spending of this month", emailContent.toString(), customer.getEmailAddress());
+            sendEmailAlert(subject, emailContent.toString(), customer.getEmailAddress());
         }
 
 
     }
 
-    private boolean validateData(String subject, String content, String emailAddress) {
-        if (subject.isEmpty() || content.isEmpty() || emailAddress.isEmpty())
-            throw new IllegalArgumentException("Check your arguments");
-
-        return true;
-    }
 
     public int getTotalAmount(Map<String, Integer> map) {
         return map.values().stream().mapToInt(Integer::intValue).sum();
+    }
+
+    private EmailCreator createCustomEmail() {
+        return new EmailCreator("Custom subject is passed", "Custom Body is passed", "Custom Footer is passed");
     }
 }

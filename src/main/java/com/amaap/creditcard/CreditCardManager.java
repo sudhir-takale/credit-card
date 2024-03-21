@@ -1,5 +1,6 @@
 package com.amaap.creditcard;
 
+import com.amaap.creditcard.alerts.EmailCreator;
 import com.amaap.creditcard.alerts.EmailHandler;
 import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
@@ -16,12 +17,14 @@ public class CreditCardManager {
     private final CreditCard creditCard;
     private final UnusualSpendAnalyzer unusualSpendAnalyzer;
     private final EmailHandler emailHandler;
+    private EmailCreator emailCreator;
 
-    public CreditCardManager( CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer, EmailHandler emailHandler) {
+    public CreditCardManager(CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer, EmailHandler emailHandler, EmailCreator emailCreator) {
         this.creditCard = creditCard;
 
         this.unusualSpendAnalyzer = unusualSpendAnalyzer;
         this.emailHandler = emailHandler;
+        this.emailCreator = emailCreator;
     }
 
     public Customer createCustomer(int id, String name, String email) throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
@@ -60,5 +63,10 @@ public class CreditCardManager {
     public double setThresholdPercent(int thresholdPercent) throws InvalidThresholdPercentageException {
         return unusualSpendAnalyzer.setThreshold(thresholdPercent);
 
+    }
+
+    public EmailCreator createCustomEmail() {
+
+        return emailCreator.createCustomEmail();
     }
 }

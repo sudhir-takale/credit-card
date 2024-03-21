@@ -1,5 +1,6 @@
 package com.amaap.creditcard;
 
+import com.amaap.creditcard.alerts.EmailCreator;
 import com.amaap.creditcard.alerts.EmailHandler;
 import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
@@ -31,6 +32,8 @@ public class CreditCardManagerTest {
     UnusualSpendAnalyzer unusualSpendAnalyzer;
     @Mock
     EmailHandler emailHandler;
+    @Mock
+    EmailCreator emailCreator;
 
     @InjectMocks
     CreditCardManager creditCardManager;
@@ -94,6 +97,18 @@ public class CreditCardManagerTest {
         when(unusualSpendAnalyzer.setThreshold(149.0)).thenReturn(149.0);
         double result = creditCardManager.setThresholdPercent(149);
         Assertions.assertEquals(149.0, result);
+
+    }
+
+    @Test
+    void shouldBeABleToCreateACustomEmail() {
+//    Arrange
+        when(emailCreator.createCustomEmail()).thenReturn(new EmailCreator("Hii", "how are you", "How can I help YOu"));
+//        act
+        EmailCreator email = creditCardManager.createCustomEmail();
+//        assert
+        Assertions.assertNotNull(email);
+
 
     }
 
