@@ -5,22 +5,18 @@ import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
 import com.amaap.creditcard.domain.exceptions.*;
 import com.amaap.creditcard.spendinganalyzer.UnusualSpendAnalyzer;
-import com.amaap.creditcard.transactions.Transaction;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CreditCardManager {
 
 
-    private final Customer customer;
     private final CreditCard creditCard;
     private final UnusualSpendAnalyzer unusualSpendAnalyzer;
     private final EmailHandler emailHandler;
 
-    public CreditCardManager(Customer customer, CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer, EmailHandler emailHandler) {
-        this.customer = customer;
+    public CreditCardManager( CreditCard creditCard, UnusualSpendAnalyzer unusualSpendAnalyzer, EmailHandler emailHandler) {
         this.creditCard = creditCard;
 
         this.unusualSpendAnalyzer = unusualSpendAnalyzer;
@@ -39,10 +35,6 @@ public class CreditCardManager {
 
     }
 
-
-    public List<Transaction> getAllTransactions() {
-        return creditCard.getTransactions();
-    }
 
     public boolean checkForUnusualSpend() {
         return unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth();

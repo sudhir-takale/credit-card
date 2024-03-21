@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 
 public class ProcessTransactions {
-    private CreditCard creditCard;
+    private final CreditCard creditCard;
 
     public ProcessTransactions(CreditCard creditCard) {
         this.creditCard = creditCard;
@@ -31,14 +31,12 @@ public class ProcessTransactions {
 
         LocalDate lastDayOfMonth = firstDayOfMonth.plus(Period.ofMonths(1)).minusDays(1);
 
-        int totalAmount = creditCard.getTransactions().stream()
+        return creditCard.getTransactions().stream()
                 .filter(transaction ->
                         !transaction.getDateOfTransaction().isBefore(firstDayOfMonth) &&
                                 !transaction.getDateOfTransaction().isAfter(lastDayOfMonth))
                 .mapToInt(Transaction::getAmount)
                 .sum();
-
-        return totalAmount;
     }
 
     public int getTotalAmountSpentOnLastMonth() {
@@ -48,17 +46,15 @@ public class ProcessTransactions {
 
         LocalDate lastDayOfLastMonth = currentDate.minus(Period.ofMonths(1));
 
-        int totalAmount = creditCard.getTransactions().stream()
+        return creditCard.getTransactions().stream()
                 .filter(transaction ->
                         !transaction.getDateOfTransaction().isBefore(firstDayOfLastMonth) &&
                                 !transaction.getDateOfTransaction().isAfter(lastDayOfLastMonth))
                 .mapToInt(Transaction::getAmount)
                 .sum();
-
-        return totalAmount;
     }
 
-    public List<Transaction> getCurrrentMonthTransactions() {
+    public List<Transaction> getCurrentMonthTransactions() {
         return creditCard.getTransactions().stream().filter((x) -> x.getDateOfTransaction().getMonth() ==
                 LocalDate.now().getMonth()).collect(Collectors.toList());
     }
@@ -70,7 +66,7 @@ public class ProcessTransactions {
     }
 
     public Map<String, Integer> groupTransactionsByCategoryOfCurrentMonth() {
-        List<Transaction> currentMonthTransactions = getCurrrentMonthTransactions();
+        List<Transaction> currentMonthTransactions = getCurrentMonthTransactions();
 
         return currentMonthTransactions.stream()
                 .collect(Collectors.groupingBy(Transaction::getCategory,

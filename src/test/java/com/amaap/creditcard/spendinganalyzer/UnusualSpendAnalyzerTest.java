@@ -15,17 +15,15 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class UnusualSpendAnalyzerTest {
-    private Customer customer;
-   private ProcessTransactions processTransaction;
     private CreditCard creditCard;
     private UnusualSpendAnalyzer unusualSpendAnalyzer;
 
 
     @BeforeEach
     void setup() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-        customer = Customer.createNewCustomer(1, "Sudhir T", "sudhir@gmail.com");
+        Customer customer = Customer.createNewCustomer(1, "Sudhir T", "sudhir@gmail.com");
         creditCard = new CreditCard(1212, customer);
-        processTransaction = new ProcessTransactions(creditCard);
+        ProcessTransactions processTransaction = new ProcessTransactions(creditCard);
         unusualSpendAnalyzer = new UnusualSpendAnalyzer(processTransaction);
     }
 

@@ -5,7 +5,6 @@ import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
 import com.amaap.creditcard.domain.exceptions.*;
 import com.amaap.creditcard.spendinganalyzer.UnusualSpendAnalyzer;
-import com.amaap.creditcard.transactions.Transaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,9 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.*;
@@ -91,4 +88,6 @@ public class CreditCardManagerTest {
         creditCardManager.sendMessageToCustomer(customer1);
 
     }
+
+
 }

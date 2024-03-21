@@ -14,16 +14,14 @@ import java.util.Properties;
 public class EmailHandler {
 
 
-    public void sendEmailAlert(String subject, String body, String bEmail) {
+    public void sendEmailAlert(String subject, String body, String recipientEmail) {
 
-        if (bEmail.isEmpty()) return;
+        if (recipientEmail.isEmpty()) return;
         if (subject.isEmpty() || body.isEmpty()) return;
         String fromEmail = "sudhirtakale99@gmail.com";
-        String toEmail = bEmail;
         String password = "vvye muxc nawq phgy";
 
 
-        String host = "127.0.0.1";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
@@ -41,7 +39,7 @@ public class EmailHandler {
             Message message = new MimeMessage(session);
 
             message.setFrom(new InternetAddress(fromEmail));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
 
             message.setSubject(subject);
             message.setText(body);

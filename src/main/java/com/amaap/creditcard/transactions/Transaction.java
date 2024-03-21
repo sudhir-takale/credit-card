@@ -1,9 +1,7 @@
 package com.amaap.creditcard.transactions;
 
 
-
 import com.amaap.creditcard.domain.CreditCard;
-import com.amaap.creditcard.domain.Customer;
 
 import java.time.LocalDate;
 
@@ -17,25 +15,23 @@ public class Transaction {
 
     public Transaction(int transactionId, LocalDate dateOfTransaction, String category, CreditCard creditCard, int amount) {
 
-        TransactionValidator.validateTransaction(transactionId, dateOfTransaction, category,
-                creditCard, amount);
+        if (TransactionValidator.validateTransaction(transactionId, dateOfTransaction, category, creditCard, amount)) {
 
-        this.transactionId = transactionId;
-        this.dateOfTransaction = dateOfTransaction;
-        this.category = category;
-        this.creditCard = creditCard;
-        this.amount = amount;
+            this.transactionId = transactionId;
+            this.dateOfTransaction = dateOfTransaction;
+            this.category = category;
+            this.creditCard = creditCard;
+            this.amount = amount;
+        }
     }
 
     public static Transaction makeTransaction(int transactionId, LocalDate dateOfTransaction, String category, CreditCard creditCard, int amount) {
-
 
         Transaction transaction = new Transaction(transactionId, dateOfTransaction, category, creditCard, amount);
         creditCard.getTransactions().add(transaction);
         return transaction;
     }
 
-    ;
 
     public CreditCard getCreditCard() {
         return creditCard;
@@ -59,13 +55,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" +
-                "transactionId=" + transactionId +
-                ", dateOfTransaction=" + dateOfTransaction +
-                ", category='" + category + '\'' +
-                ", creditCard=" + creditCard +
-                ", amount=" + amount +
-                '}';
+        return "Transaction{" + "transactionId=" + transactionId + ", dateOfTransaction=" + dateOfTransaction + ", category='" + category + '\'' + ", creditCard=" + creditCard + ", amount=" + amount + '}';
     }
 }
 

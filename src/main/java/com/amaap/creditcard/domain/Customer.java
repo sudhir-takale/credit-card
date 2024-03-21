@@ -5,10 +5,7 @@ import com.amaap.creditcard.domain.exceptions.InvalidCustomerIdException;
 import com.amaap.creditcard.domain.exceptions.InvalidCustomerNameException;
 import com.amaap.creditcard.domain.validators.EmailValidator;
 import com.amaap.creditcard.domain.validators.NameValidator;
-import com.amaap.creditcard.transactions.Transaction;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Customer {
 
@@ -22,8 +19,6 @@ public class Customer {
         this.emailAddress = email;
     }
 
-    public Customer() {
-    }
 
     public static Customer createNewCustomer(int id, String name, String email) throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         if (!validateId(id)) {
@@ -48,9 +43,6 @@ public class Customer {
         return true;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
 
     public String getName() {
         return name;

@@ -16,20 +16,19 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProcessTransactionsTest {
-   private Customer customer;
-   private ProcessTransactions processTransaction;
+    private ProcessTransactions processTransaction;
    private CreditCard creditCard;
 
     @BeforeEach
     void setup() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-        customer = Customer.createNewCustomer(1, "Sudhir T", "sudhir@gmail.com");
+        Customer customer = Customer.createNewCustomer(1, "Sudhir T", "sudhir@gmail.com");
         creditCard = new CreditCard(1212, customer); // Initialize the creditCard field
         processTransaction = new ProcessTransactions(creditCard);
     }
 
 
     @Test
-    void shouldBeAbleToGetAllTransactions() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+    void shouldBeAbleToGetAllTransactions() {
 
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
@@ -39,7 +38,7 @@ public class ProcessTransactionsTest {
     }
 
     @Test
-    void shouldAbleToReturnTotalAmountSpentCurrentMonth() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+    void shouldAbleToReturnTotalAmountSpentCurrentMonth(){
 
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
@@ -50,7 +49,7 @@ public class ProcessTransactionsTest {
     }
 
     @Test
-    void shouldAbleToReturnTotalAmountSpentLastMonth() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+    void shouldAbleToReturnTotalAmountSpentLastMonth() {
 
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
@@ -61,19 +60,19 @@ public class ProcessTransactionsTest {
     }
 
     @Test
-    void shouldAbleToFilterTransactionsCurrentMonth() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+    void shouldAbleToFilterTransactionsCurrentMonth() {
 
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
-        List<Transaction> transactions = processTransaction.getCurrrentMonthTransactions();
+        List<Transaction> transactions = processTransaction.getCurrentMonthTransactions();
         Assertions.assertEquals(2, transactions.size());
 
     }
 
     @Test
-    void shouldAbleToFilterTransactionsByPreviousMonth() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+    void shouldAbleToFilterTransactionsByPreviousMonth()  {
 
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
