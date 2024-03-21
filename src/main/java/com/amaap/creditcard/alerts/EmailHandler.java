@@ -18,7 +18,7 @@ public class EmailHandler {
 
     public void sendEmailAlert(String subject, String body, String recipientEmail) {
 
-      EmailValidator.validateEmail(subject, body, recipientEmail);
+        EmailValidator.validateEmail(subject, body, recipientEmail);
 
         String fromEmail = "sudhirtakale99@gmail.com";
         String password = "vvye muxc nawq phgy";
@@ -93,7 +93,7 @@ public class EmailHandler {
         return map.values().stream().mapToInt(Integer::intValue).sum();
     }
 
-    private EmailCreator createCustomEmail() {
+    public EmailCreator createCustomEmail() {
         return new EmailCreator("Custom subject is passed", "Custom Body is passed", "Custom Footer is passed");
     }
 }
