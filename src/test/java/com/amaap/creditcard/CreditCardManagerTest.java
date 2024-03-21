@@ -5,6 +5,7 @@ import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
 import com.amaap.creditcard.domain.exceptions.*;
 import com.amaap.creditcard.spendinganalyzer.UnusualSpendAnalyzer;
+import com.amaap.creditcard.spendinganalyzer.exceptions.InvalidThresholdPercentageException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +54,6 @@ public class CreditCardManagerTest {
     }
 
 
-
     @Test
     void shouldBeAbleToCheckWhetherThereIsAnyUnusualSpendOrNot() {
 
@@ -86,6 +86,14 @@ public class CreditCardManagerTest {
         verify(emailHandler, never()).sendEmailToCustomer(new HashMap<>(), customer1);
 
         creditCardManager.sendMessageToCustomer(customer1);
+
+    }
+
+    @Test
+    void shouldBeAbleToSetThresholdPercentageForUnusualSpend() throws InvalidThresholdPercentageException {
+        when(unusualSpendAnalyzer.setThreshold(149.0)).thenReturn(149.0);
+        double result = creditCardManager.setThresholdPercent(149);
+        Assertions.assertEquals(149.0, result);
 
     }
 

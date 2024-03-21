@@ -1,37 +1,45 @@
 package com.amaap.creditcard.spendinganalyzer;
 
 
+import com.amaap.creditcard.spendinganalyzer.exceptions.InvalidThresholdPercentageException;
 import com.amaap.creditcard.transactions.ProcessTransactions;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UnusualSpendAnalyzer {
-    private ProcessTransactions processTransactions;
+
+    private final ProcessTransactions processTransactions;
+    private double threshold = 150.0;
 
     public UnusualSpendAnalyzer(ProcessTransactions processTransactions) {
         this.processTransactions = processTransactions;
 
     }
 
-    public boolean isThereIsUnusualSpendingThisMonth() {
+    public double getThreshold() {
+        return threshold;
+    }
 
+    public double setThreshold(double threshold) throws InvalidThresholdPercentageException {
+        if (threshold <= 0) throw new InvalidThresholdPercentageException("Threshold value can't be Zero");
+        return this.threshold = threshold;
+    }
+
+    public boolean isThereIsUnusualSpendingThisMonth() {
         int currentMonthSpending = processTransactions.getTotalAmountSpentOnCurrentMonth();
         int lastMonthSpending = processTransactions.getTotalAmountSpentOnLastMonth();
-        int spending = (lastMonthSpending / 2) * 3;
-        System.out.println(currentMonthSpending);
-        System.out.println(lastMonthSpending);
-        System.out.println(spending);
-        return currentMonthSpending >= spending;
 
+        int thresholdAmount = (int) (lastMonthSpending * (threshold / 100));
+
+        return currentMonthSpending >= thresholdAmount;
     }
 
     public Map<String, Integer> categoriesInWhichSpendingIsUnusual() {
         Map<String, Integer> currentMonthSpending = processTransactions.groupTransactionsByCategoryOfCurrentMonth();
         Map<String, Integer> lastMonthSpending = processTransactions.groupTransactionsByCategoryOfLastMonth();
 
-        Map<String, Integer> unusualMonthSpending = calculateUnusualMonthSpending(currentMonthSpending, lastMonthSpending);
-        return unusualMonthSpending;
+        return calculateUnusualMonthSpending(currentMonthSpending, lastMonthSpending);
     }
 
     private Map<String, Integer> calculateUnusualMonthSpending(Map<String, Integer> currentMonthSpending, Map<String, Integer> lastMonthSpending) {
@@ -44,9 +52,10 @@ public class UnusualSpendAnalyzer {
             if (lastMonthSpending.containsKey(category)) {
                 int lastMonthAmount = lastMonthSpending.get(category);
 
+                double thresholdAmount = lastMonthAmount * (threshold / 100.0);
                 double increasePercentage = ((double) (currentAmount - lastMonthAmount) / lastMonthAmount) * 100;
 
-                if (increasePercentage > 50.0) {
+                if (increasePercentage > 50.0 && currentAmount >= thresholdAmount) {
                     unusualCategories.put(category, currentAmount);
                 }
             }

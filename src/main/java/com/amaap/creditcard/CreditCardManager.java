@@ -5,6 +5,7 @@ import com.amaap.creditcard.domain.CreditCard;
 import com.amaap.creditcard.domain.Customer;
 import com.amaap.creditcard.domain.exceptions.*;
 import com.amaap.creditcard.spendinganalyzer.UnusualSpendAnalyzer;
+import com.amaap.creditcard.spendinganalyzer.exceptions.InvalidThresholdPercentageException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +54,11 @@ public class CreditCardManager {
         if (!categories.isEmpty()) {
             emailHandler.sendEmailToCustomer(categories, customer);
         }
+
+    }
+
+    public double setThresholdPercent(int thresholdPercent) throws InvalidThresholdPercentageException {
+        return unusualSpendAnalyzer.setThreshold(thresholdPercent);
 
     }
 }

@@ -5,6 +5,7 @@ import com.amaap.creditcard.domain.Customer;
 import com.amaap.creditcard.domain.exceptions.InvalidCustomerEmailException;
 import com.amaap.creditcard.domain.exceptions.InvalidCustomerIdException;
 import com.amaap.creditcard.domain.exceptions.InvalidCustomerNameException;
+import com.amaap.creditcard.spendinganalyzer.exceptions.InvalidThresholdPercentageException;
 import com.amaap.creditcard.transactions.ProcessTransactions;
 import com.amaap.creditcard.transactions.Transaction;
 import org.junit.jupiter.api.Assertions;
@@ -52,6 +53,22 @@ public class UnusualSpendAnalyzerTest {
         Assertions.assertEquals(0, result.size());
     }
 
+
+    @Test
+    void shouldBeAbleToSetThreshold() throws InvalidThresholdPercentageException {
+
+        unusualSpendAnalyzer.setThreshold(12.3);
+        double result = unusualSpendAnalyzer.getThreshold();
+        Assertions.assertEquals(12.3, result);
+
+    }
+
+    @Test
+    void shouldThrowInvalidThresholdPercentIfNegativeOrZeroPercentageIsPassed() {
+        Assertions.assertThrows(InvalidThresholdPercentageException.class,
+                () -> unusualSpendAnalyzer.setThreshold(0));
+
+    }
 }
 
 
