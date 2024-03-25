@@ -30,41 +30,49 @@ public class UnusualSpendAnalyzerTest {
 
     @Test
     void shouldAbleToCheckWhetherThereIsAnyUnusualSpending() {
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "travel", creditCard, 20);
         Transaction.makeTransaction(2, LocalDate.parse("2024-01-13"), "shopping", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 100);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
-
+//        Act
         boolean result = unusualSpendAnalyzer.isThereIsUnusualSpendingThisMonth();
+//        Assert
         Assertions.assertTrue(result);
 
     }
 
     @Test
     void shouldProvideCategoriesInWhichSpendingIsUnusual() {
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-10"), "Grocery", creditCard, 90);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-15"), "travel", creditCard, 70);
         Transaction.makeTransaction(1, LocalDate.now(), "shopping", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 50);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
+//        Act
         Map<String, Integer> result = unusualSpendAnalyzer.categoriesInWhichSpendingIsUnusual();
+//        Assert
         Assertions.assertEquals(0, result.size());
     }
 
 
     @Test
     void shouldBeAbleToSetThreshold() throws InvalidThresholdPercentageException {
-
+//        Arrange
         unusualSpendAnalyzer.setThreshold(12.3);
+//        Act
         double result = unusualSpendAnalyzer.getThreshold();
+//        Assert
         Assertions.assertEquals(12.3, result);
 
     }
 
     @Test
     void shouldThrowInvalidThresholdPercentIfNegativeOrZeroPercentageIsPassed() {
+//        Act & assert
         Assertions.assertThrows(InvalidThresholdPercentageException.class,
                 () -> unusualSpendAnalyzer.setThreshold(0));
 

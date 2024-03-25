@@ -17,104 +17,107 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProcessTransactionsTest {
     private ProcessTransactions processTransaction;
-   private CreditCard creditCard;
+    private CreditCard creditCard;
 
     @BeforeEach
     void setup() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         Customer customer = Customer.createNewCustomer(1, "Sudhir T", "sudhir@gmail.com");
-        creditCard = new CreditCard(1212, customer); // Initialize the creditCard field
+        creditCard = new CreditCard(1212, customer);
         processTransaction = new ProcessTransactions(creditCard);
     }
 
-
     @Test
     void shouldBeAbleToGetAllTransactions() {
-
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
+//        Act
         List<Transaction> transactions = processTransaction.getAllTransactions();
+//        Assert
         assertEquals(2, transactions.size());
 
     }
 
     @Test
-    void shouldAbleToReturnTotalAmountSpentCurrentMonth(){
-
+    void shouldAbleToReturnTotalAmountSpentCurrentMonth() {
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
+//        Act
         int amount = processTransaction.getTotalAmountSpentOnCurrentMonth();
+//        Assert
         Assertions.assertEquals(30, amount);
 
     }
 
     @Test
     void shouldAbleToReturnTotalAmountSpentLastMonth() {
-
+        //Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
+//        Act
         int amount = processTransaction.getTotalAmountSpentOnLastMonth();
+//        Assert
         Assertions.assertEquals(30, amount);
 
     }
 
     @Test
     void shouldAbleToFilterTransactionsCurrentMonth() {
-
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
+//        Act
         List<Transaction> transactions = processTransaction.getCurrentMonthTransactions();
+//        Assert
         Assertions.assertEquals(2, transactions.size());
 
     }
 
     @Test
-    void shouldAbleToFilterTransactionsByPreviousMonth()  {
-
+    void shouldAbleToFilterTransactionsByPreviousMonth() {
+//      Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
+//        Act
         List<Transaction> transactions = processTransaction.getTransactionsOfLastMonth();
+//        Assert
         Assertions.assertEquals(2, transactions.size());
 
     }
 
     @Test
     void shouldAbleToGroupTransactionsByCategoryCurrentMonth() {
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
-
+//        Act
         Map<String, Integer> transactions = processTransaction.groupTransactionsByCategoryOfCurrentMonth();
-        for (Map.Entry<String, Integer> entry : transactions.entrySet()) {
-            System.out.println("Category: " + entry.getKey());
-            System.out.println("Total Amount: " + entry.getValue());
-            System.out.println("-------------------------");
-        }
+//        Assert
         Assertions.assertEquals(2, transactions.size());
     }
 
     @Test
     void shouldAbleToGroupTransactionsByCategoryOfLastMonth() {
+//        Arrange
         Transaction.makeTransaction(1, LocalDate.parse("2024-02-13"), "Grocery", creditCard, 10);
         Transaction.makeTransaction(2, LocalDate.parse("2024-02-14"), "travel", creditCard, 20);
         Transaction.makeTransaction(2, LocalDate.parse("2024-01-13"), "shopping", creditCard, 20);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Grocery", creditCard, 10);
         Transaction.makeTransaction(1, LocalDate.now(), "Travel", creditCard, 10);
-
+//        Act
         Map<String, Integer> transactions = processTransaction.groupTransactionsByCategoryOfLastMonth();
-        for (Map.Entry<String, Integer> entry : transactions.entrySet()) {
-            System.out.println("Category: " + entry.getKey());
-            System.out.println("Total Amount: " + entry.getValue());
-            System.out.println("-------------------------");
-        }
+//       Assert
         Assertions.assertEquals(2, transactions.size());
     }
 

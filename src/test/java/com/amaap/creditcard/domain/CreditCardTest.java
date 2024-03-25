@@ -32,8 +32,5 @@ class CreditCardTest {
 //        Act & assert
         Assertions.assertThrows(NullCustomerException.class, () -> creditCard.createNewCreditCard(1212, null));
 
-
     }
-
-
 }

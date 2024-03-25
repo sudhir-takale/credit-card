@@ -37,7 +37,6 @@ public class CreditCardManagerTest {
     @InjectMocks
     CreditCardManager creditCardManager;
 
-
     @Test
     void shouldAbleToCreateNewCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
         //Arrange & Act

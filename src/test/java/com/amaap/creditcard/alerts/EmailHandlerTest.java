@@ -14,16 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 @Tag("integration")
 class EmailHandlerTest {
 
-
     private EmailHandler emailHandler;
 
     @BeforeEach
     void setUp() {
         emailHandler = new EmailHandler();
         MockitoAnnotations.openMocks(this);
-
     }
-
 
     @Test
     void shouldThrowIllegalArgumentExceptionIfEmptySubjectPassed() {

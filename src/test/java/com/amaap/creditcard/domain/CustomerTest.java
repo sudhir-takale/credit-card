@@ -45,9 +45,7 @@ public class CustomerTest {
             createNewCustomer(1, "", "Sudhirtakale99@gmail.com");
 
         }, " " + "Name of the Customer should not be Empty!");
-
     }
-
 
     @Test
     void shouldReturnInvalidNameExceptionIfNameContainsNumbers() {
