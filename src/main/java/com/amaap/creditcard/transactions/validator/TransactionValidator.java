@@ -1,4 +1,4 @@
-package com.amaap.creditcard.transactions;
+package com.amaap.creditcard.transactions.validator;
 
 
 import com.amaap.creditcard.domain.CreditCard;

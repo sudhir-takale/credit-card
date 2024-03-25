@@ -2,6 +2,7 @@ package com.amaap.creditcard.transactions;
 
 
 import com.amaap.creditcard.domain.CreditCard;
+import com.amaap.creditcard.transactions.validator.TransactionValidator;
 
 import java.time.LocalDate;
 
@@ -53,9 +54,5 @@ public class Transaction {
         return amount;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" + "transactionId=" + transactionId + ", dateOfTransaction=" + dateOfTransaction + ", category='" + category + '\'' + ", creditCard=" + creditCard + ", amount=" + amount + '}';
-    }
 }
 

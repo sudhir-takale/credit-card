@@ -88,4 +88,24 @@ public class CustomerTest {
         });
     }
 
+    @Test
+    void shouldReturnNameOfCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+//     Arrange
+        Customer result = createNewCustomer(1, "Sudhir T", "Sudhirtakale99@gmail.com");
+//        Act
+        String name = result.getName();
+//        Assert
+        Assertions.assertEquals("Sudhir T", name);
+    }
+
+    @Test
+    void shouldReturnEmailOfCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
+//     Arrange
+        Customer result = createNewCustomer(1, "Sudhir T", "sudhirtakale99@gmail.com");
+//        Act
+        String name = result.getEmailAddress();
+//        Assert
+        Assertions.assertEquals("sudhirtakale99@gmail.com", name);
+    }
+
 }

@@ -25,10 +25,6 @@ public class CreditCard {
 
     }
 
-    public int getCardNumber() {
-        return cardNumber;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
