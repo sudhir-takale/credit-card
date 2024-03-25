@@ -1,3 +1,8 @@
+![image](https://github.com/sudhir-takale/credit-card/assets/93988135/1ec795d9-855c-485b-97d8-b8b58c2ea995)
+
+
+
+
 # Problem Statement
 
 ## Unusual Spends
