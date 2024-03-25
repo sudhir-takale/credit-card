@@ -39,3 +39,74 @@ Extensions -
 # credit-card
 
 This is credit card task by amaap
+
+
+class CreditCard {
+    public long cardNumber;
+    public String cardHolderName;
+    private int cvv;
+    private Date expiryDate;
+    public boolean status;
+
+    CreditCard(cardNumber, holderName, cvv, expiryDate, status)
+
+    Methods:
+    - void getDetails()
+    - getCreditCard()
+    - makeTransaction()
+}
+class Address {
+    String city;
+    String district;
+    long pinCode;
+
+    Address(city, district, pincode)
+}
+class ContactDetails {
+    long Number;
+    String email;
+
+    ContactDetails(Number, email)
+
+    Methods:
+    - getContactDetails()
+}
+
+
+class User {
+String userName;
+Address address;
+CreditCard creditCard;
+ContactDetails contactDetails;
+
+    User(uName, creditCard, contactDetails, address)
+
+    Methods:
+    - getTotalAmount()
+    - viewSpending(month)
+
+}
+
+
+class SpendingManager {
+private Map<String, Integer> spendingOfMonth;
+User user;
+Date date;
+
+    Methods:
+    - void getSpendings()
+    - addNewSpend(String category, int amount)
+    - makeAlert()
+    - processSpendingByMonth()
+
+}
+
+class EmailHandler {
+
+    Methods:
+    - sendEmail(email address)
+
+}
+
+
+
