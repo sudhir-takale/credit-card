@@ -25,7 +25,14 @@ public class CustomerTest {
             createNewCustomer(0, "Sudhir T", "Sudhirtakale99@gmail.com");
 
         }, 0 + "id should not be 0");
+    }
 
+    @Test
+    void shouldReturnInvalidCustomerIdExceptionIfIdIsLessThanZero() {
+        assertThrows(InvalidCustomerIdException.class, () -> {
+            createNewCustomer(-1, "Sudhir T", "Sudhirtakale99@gmail.com");
+
+        }, -1 + "id should not be 0");
     }
 
     @Test
