@@ -10,10 +10,8 @@ public class EmailCreatorTest {
     void shouldAbleToCreateEmailWithValidArguments() {
         // Arrange
         EmailCreator emailCreator = new EmailCreator("Subject", " Body", "Credit card");
-
         // Act
         EmailCreator customEmail = emailCreator.createCustomEmail();
-
         // Assert
         Assertions.assertNotNull(customEmail);
         Assertions.assertEquals("Sudhir", customEmail.getSubject());

@@ -14,13 +14,15 @@ public class CustomerTest {
 
     @Test
     void shouldBeAbleToCreateCustomer() throws InvalidCustomerIdException, InvalidCustomerNameException, InvalidCustomerEmailException {
-
+//        Arrange & Act
         Customer result = createNewCustomer(1, "Sudhir T", "Sudhirtakale99@gmail.com");
+//        Assert
         Assertions.assertNotNull(result);
     }
 
     @Test
     void shouldReturnInvalidCustomerIdExceptionIfIdIsLessThanEqualZero() {
+//        Act & Assert
         assertThrows(InvalidCustomerIdException.class, () -> {
             createNewCustomer(0, "Sudhir T", "Sudhirtakale99@gmail.com");
 
@@ -29,6 +31,7 @@ public class CustomerTest {
 
     @Test
     void shouldReturnInvalidCustomerIdExceptionIfIdIsLessThanZero() {
+//        Act & Assert
         assertThrows(InvalidCustomerIdException.class, () -> {
             createNewCustomer(-1, "Sudhir T", "Sudhirtakale99@gmail.com");
 
@@ -37,6 +40,7 @@ public class CustomerTest {
 
     @Test
     void shouldReturnInvalidNameExceptionIfNameIsEmpty() {
+//        Act & Assert
         Assertions.assertThrows(InvalidCustomerNameException.class, () -> {
             createNewCustomer(1, "", "Sudhirtakale99@gmail.com");
 
@@ -47,6 +51,7 @@ public class CustomerTest {
 
     @Test
     void shouldReturnInvalidNameExceptionIfNameContainsNumbers() {
+//        Act & Assert
         Assertions.assertThrows(InvalidCustomerNameException.class, () -> {
             createNewCustomer(2, "John123", "john123@example.com");
         }, "Name of the Customer should not contain numbers!");
@@ -61,6 +66,7 @@ public class CustomerTest {
 
     @Test
     void shouldReturnInvalidEmailAddressExceptionIfEmailAddressIsEmpty() {
+//        Act & Assert
         Assertions.assertThrows(InvalidCustomerEmailException.class, () -> {
             createNewCustomer(1, "John Doe", "");
         }, "Email address of the Customer should not be empty!");
@@ -68,6 +74,7 @@ public class CustomerTest {
 
     @Test
     void shouldReturnInvalidEmailAddressExceptionIfEmailAddressIsInvalid() {
+//        Act & Assert
         Assertions.assertThrows(InvalidCustomerEmailException.class, () -> {
             createNewCustomer(2, "Alice", "invalid_email");
         }, "Invalid email address format!");
@@ -75,6 +82,7 @@ public class CustomerTest {
 
     @Test
     void shouldCreateCustomerIfEmailAddressIsValid() {
+//        Act & Assert
         Assertions.assertDoesNotThrow(() -> {
             createNewCustomer(3, "Bob", "bob@example.com");
         });
