@@ -10,7 +10,7 @@ public class NameValidatorTest {
     @Test
     void shouldReturnTrueForValidName() {
         // Arrange
-        String validName = "John Doe";
+        String validName = "Sudhir Takale";
         // Act & Assert
         assertTrue(NameValidator.validate(validName));
     }
@@ -26,7 +26,7 @@ public class NameValidatorTest {
     @Test
     void shouldReturnFalseForNameWithNumbers() {
         // Arrange
-        String nameWithNumbers = "John123";
+        String nameWithNumbers = "shaurya234";
         // Act & Assert
         assertFalse(NameValidator.validate(nameWithNumbers));
     }
@@ -34,7 +34,7 @@ public class NameValidatorTest {
     @Test
     void shouldReturnFalseForNameWithSpecialCharacters() {
         // Arrange
-        String nameWithSpecialCharacters = "John@Doe";
+        String nameWithSpecialCharacters = "sudhitakale@g.com";
         // Act & Assert
         assertFalse(NameValidator.validate(nameWithSpecialCharacters));
     }
@@ -42,7 +42,7 @@ public class NameValidatorTest {
     @Test
     void shouldReturnFalseForNameWithBothNumbersAndSpecialCharacters() {
         // Arrange
-        String nameWithNumbersAndSpecialCharacters = "John123@Doe";
+        String nameWithNumbersAndSpecialCharacters = "sudhir34@j";
         // Act & Assert
         assertFalse(NameValidator.validate(nameWithNumbersAndSpecialCharacters));
     }
