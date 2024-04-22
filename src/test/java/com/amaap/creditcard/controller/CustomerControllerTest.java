@@ -24,5 +24,33 @@ public class CustomerControllerTest {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void shouldReturnBadResponseIfInvalidEmailAddress() {
+        // arrange
+        String name = "sudhir takale";
+        String emailAddress = "dummyemail@gmail2323.com23";
+
+        // act
+        Response expected = new Response(HttpsStatus.BADREQUEST, "Failed to create Customer");
+        Response actual = customerController.create(name, emailAddress);
+
+        // assert
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldReturnBadResponseIfInvalidNameIsPassed() {
+        // arrange
+        String name = "sudhir takale23";
+        String emailAddress = "dummyemail@gmail.com";
+
+        // act
+        Response expected = new Response(HttpsStatus.BADREQUEST, "Failed to create Customer");
+        Response actual = customerController.create(name, emailAddress);
+
+        // assert
+        Assertions.assertEquals(expected, actual);
+    }
+
 
 }

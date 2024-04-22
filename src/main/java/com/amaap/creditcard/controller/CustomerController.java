@@ -17,7 +17,7 @@ public class CustomerController {
             customerService.create(name, emailAddress);
             return new Response(HttpsStatus.OK, "New customer created successfully");
         } catch (InvalidCustomerDataException e) {
-            return new Response(HttpsStatus.BADREQUEST, e.getMessage() + " ");
+            return new Response(HttpsStatus.BADREQUEST, "Failed to create Customer");
         }
     }
 }
