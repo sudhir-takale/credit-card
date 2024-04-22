@@ -2,6 +2,7 @@ package com.amaap.creditcard.controller;
 
 import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
+import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.service.CustomerService;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +10,8 @@ import org.junit.jupiter.api.Test;
 
 public class CustomerControllerTest {
 
-    CustomerController customerController = new CustomerController(new CustomerService(new InMemoryCustomerRepository()));
+    CustomerController customerController =
+            new CustomerController(new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase())));
 
     @Test
     void shouldBeAbleToCreateNewCustomer() {

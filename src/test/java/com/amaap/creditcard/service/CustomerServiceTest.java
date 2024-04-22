@@ -1,6 +1,7 @@
 package com.amaap.creditcard.service;
 
 import com.amaap.creditcard.domain.model.entity.Customer;
+import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomerServiceTest {
-    CustomerService customerService = new CustomerService(new InMemoryCustomerRepository());
+    CustomerService customerService = new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase()));
 
     @Test
     void shouldBeAbleToCreateANewCustomer() throws InvalidCustomerDataException {
