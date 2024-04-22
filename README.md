@@ -1,8 +1,5 @@
 ![image](https://github.com/sudhir-takale/credit-card/assets/93988135/1ec795d9-855c-485b-97d8-b8b58c2ea995)
 
-
-
-
 # Problem Statement
 
 ## Unusual Spends
@@ -38,75 +35,56 @@ Extensions -
 
 # credit-card
 
-This is credit card task by amaap
+#### Assumptions:
 
+    - Credit Card doesn't exist without customer
+    - transaction does not exist without credit card
 
-class CreditCard {
-    public long cardNumber;
-    public String cardHolderName;
-    private int cvv;
-    private Date expiryDate;
-    public boolean status;
+# Solution
 
-    CreditCard(cardNumber, holderName, cvv, expiryDate, status)
+# Domain Analysis
 
-    Methods:
-    - void getDetails()
-    - getCreditCard()
-    - makeTransaction()
-}
-class Address {
-    String city;
-    String district;
-    long pinCode;
+### Entity
 
-    Address(city, district, pincode)
-}
-class ContactDetails {
-    long Number;
-    String email;
+    - Customer 
+        - id
+        - name
+        - email_address  
+    - CreditCard
+        - id
+        - Customer 
+    - Transaction
+        - id
+        - creditCardId - to refer the credit card with transaction
+        - date
+        - amount
+        - category
 
-    ContactDetails(Number, email)
+### ValueObject
 
-    Methods:
-    - getContactDetails()
-}
+    - Category (enum) - to store the categories like Travel, shopping etc
 
+### Domain Service
 
-class User {
-String userName;
-Address address;
-CreditCard creditCard;
-ContactDetails contactDetails;
+    - UnusualSpendAnalyser - it processes ununusual spends on category of personal 
 
-    User(uName, creditCard, contactDetails, address)
+### Controller
 
-    Methods:
-    - getTotalAmount()
-    - viewSpending(month)
+    - TransactionController - handle all operations related with transaction like createTransaction, getTransactions and
+    - CustomerController -    handle operations related with Customer
+    - CreditCard          -   handle creditcard creation, updation etc.
+    - ManagerController    -   handle operations related with send alert, trigger analyzer
 
-}
+### Service
 
+    - TransactionService - perform operations related with transaction service  
+    - CustomerService     - perform operations related with customer
+    - CrediCardService    - peforma operations related with credit card service
+    - ManagerService       - used to trigger the domain serice and email send service
 
-class SpendingManager {
-private Map<String, Integer> spendingOfMonth;
-User user;
-Date date;
+### Repositories
 
-    Methods:
-    - void getSpendings()
-    - addNewSpend(String category, int amount)
-    - makeAlert()
-    - processSpendingByMonth()
-
-}
-
-class EmailHandler {
-
-    Methods:
-    - sendEmail(email address)
-
-}
-
-
-
+    - TransactionRepository - to store the transactions
+    - CreditCardRepository - to store the credit card 
+    - CustomerRepository - to store the customer data
+        
