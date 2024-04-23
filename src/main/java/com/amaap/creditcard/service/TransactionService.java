@@ -3,8 +3,11 @@ package com.amaap.creditcard.service;
 import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.entity.exception.InvalidTransactionParameters;
 import com.amaap.creditcard.domain.model.valueobject.Category;
+import com.amaap.creditcard.service.exception.TransactionNotFoundException;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 public class TransactionService {
 
@@ -19,5 +22,16 @@ public class TransactionService {
         Transaction transaction = Transaction.create(cardId, date, category, amount);
         return transactionRepository.save(transaction);
 
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactionRepository.getTransactions();
+    }
+
+    public Transaction getTransactionFor(int transactionId) throws TransactionNotFoundException {
+        Optional<Transaction> transaction = transactionRepository.getTransactionFor(transactionId);
+        if (transaction.isPresent())
+            return transaction.get();
+        else throw new TransactionNotFoundException("Transaction not found with id " + transactionId);
     }
 }

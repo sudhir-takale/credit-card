@@ -5,9 +5,11 @@ import com.amaap.creditcard.domain.model.entity.exception.InvalidTransactionPara
 import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryTransactionRepository;
+import com.amaap.creditcard.service.exception.TransactionNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -44,6 +46,44 @@ class TransactionServiceTest {
 
         // assert
         assertThrows(InvalidTransactionParameters.class, () -> transactionService.createTransaction(cardId, date, category, amount));
+    }
+
+    @Test
+    void shouldBeAbleToGetAllTransactions() throws InvalidTransactionParameters {
+        // arrange
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
+
+        // act
+        List<Transaction> transactions = transactionService.getTransactions();
+
+        // assert
+        assertEquals(2, transactions.size());
+    }
+
+    @Test
+    void shouldBeAbleToGetTransactionWithId() throws InvalidTransactionParameters, TransactionNotFoundException {
+        // arrange
+        int transactionId = 1;
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
+
+        // act
+        Transaction transaction = transactionService.getTransactionFor(transactionId);
+
+        // assert
+        assertEquals(1, transaction.getId());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTransactionNotFound() throws InvalidTransactionParameters {
+        // arrange
+        int transactionId = 14;
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
+
+        // assert
+        assertThrows(TransactionNotFoundException.class, () -> transactionService.getTransactionFor(14));
     }
 
 }

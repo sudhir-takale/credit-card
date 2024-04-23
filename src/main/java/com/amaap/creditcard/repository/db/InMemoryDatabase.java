@@ -17,4 +17,8 @@ public interface InMemoryDatabase {
     int insert(CreditCard card);
 
     Transaction save(Transaction transaction);
+
+    List<Transaction> getTransactions();
+
+    Optional<Transaction> getTransactionFor(int transactionId);
 }

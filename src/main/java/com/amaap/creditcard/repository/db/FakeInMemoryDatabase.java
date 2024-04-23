@@ -49,4 +49,14 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
         return transaction;
     }
 
+    @Override
+    public List<Transaction> getTransactions() {
+        return this.transactionTable;
+    }
+
+    @Override
+    public Optional<Transaction> getTransactionFor(int transactionId) {
+        return transactionTable.stream().filter(transaction -> transaction.getId() == transactionId).findFirst();
+    }
+
 }
