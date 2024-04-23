@@ -4,6 +4,9 @@ import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.CustomerRepository;
 import com.amaap.creditcard.repository.db.InMemoryDatabase;
 
+import java.util.List;
+import java.util.Optional;
+
 public class InMemoryCustomerRepository implements CustomerRepository {
     private final InMemoryDatabase inMemoryDatabase;
 
@@ -14,5 +17,15 @@ public class InMemoryCustomerRepository implements CustomerRepository {
     @Override
     public Customer save(Customer customer) {
         return inMemoryDatabase.add(customer);
+    }
+
+    @Override
+    public List<Customer> getCustomers() {
+        return inMemoryDatabase.getCustomers();
+    }
+
+    @Override
+    public Optional<Customer> getCustomerById(int id) {
+        return inMemoryDatabase.getCustomerById(id);
     }
 }

@@ -2,16 +2,18 @@ package com.amaap.creditcard.controller;
 
 import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
+import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.service.CustomerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 public class CustomerControllerTest {
 
-    CustomerController customerController =
-            new CustomerController(new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase())));
+    CustomerController customerController = new CustomerController(new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase())));
 
     @Test
     void shouldBeAbleToCreateNewCustomer() {
@@ -53,6 +55,21 @@ public class CustomerControllerTest {
 
         // assert
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldBeAbleToGetAllCustomers() {
+        // arrange
+        customerController.create("Sudhir Takale", "sudhirtakale99@gmail.com");
+        customerController.create("Baburao apte", "babubhai@gmail.com");
+        customerController.create("Raju apte", "raju@gmail.com");
+
+        // act
+        List<Customer> allCustomers = customerController.getCustomers();
+
+        // assert
+        Assertions.assertEquals(3, allCustomers.size());
+
     }
 
 

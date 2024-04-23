@@ -4,6 +4,9 @@ import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.CustomerRepository;
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
 
+import java.util.List;
+import java.util.Optional;
+
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -18,4 +21,12 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public List<Customer> getCustomers() {
+        return customerRepository.getCustomers();
+    }
+
+    public Optional<Customer> getCustomerById(int id) {
+
+        return customerRepository.getCustomerById(id);
+    }
 }
