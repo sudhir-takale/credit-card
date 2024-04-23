@@ -3,20 +3,15 @@ package com.amaap.creditcard.domain.model.entity;
 import java.util.Objects;
 
 public class CreditCard {
+    private final Customer customer;
     private int id;
-    private Customer customer;
 
     public CreditCard(Customer customer) {
         this.customer = customer;
     }
 
-
     public Customer getCustomer() {
         return customer;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {

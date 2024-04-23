@@ -10,14 +10,14 @@ import com.amaap.creditcard.service.CustomerService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class CreditCardControllerTest {
 
-    CustomerController customerController = new CustomerController(new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase())));
+    CustomerService customerService = new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase()));
+    CustomerController customerController = new CustomerController(customerService);
 
-    CreditCardController creditCardController =
-            new CreditCardController(new CreditCardService(new InMemoryCreditCardRepository(new FakeInMemoryDatabase()),
-                    new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase()))));
+    CreditCardController creditCardController = new CreditCardController(new CreditCardService(new InMemoryCreditCardRepository(new FakeInMemoryDatabase()), customerService));
 
 
     @Test
@@ -25,7 +25,7 @@ public class CreditCardControllerTest {
         // arrange
         int customerId = 1;
         customerController.create("Sudhir Takale", "sudhirtakaledmmy@gmail.com");
-        Response expected = new Response(HttpsStatus.OK, "Creditcard created successfully");
+        Response expected = new Response(HttpsStatus.OK, "Credit card created successfully");
 
         // act
         Response actual = creditCardController.create(1);
@@ -35,17 +35,30 @@ public class CreditCardControllerTest {
 
     }
 
-//    @Test
-//    void shouldBeAbleToSaveCreditCard() {
-//        // arrange
-//        int customerId = 1;
-//        customerController.create("Sudhir Takale", "sudhirtakaledmmy@gmail.com");
-//        Response expected = new Response(HttpsStatus.OK, "Creditcard created successfully");
-//
-//        // act
-//        Response actual = creditCardController.create(1);
-//
-//    }
+    @Test
+    void shouldNotCreateCreditCardIfInvalidCustomerIdHasPassed() {
+        // arrange
+        int customerId = 13;
+        customerController.create("Sudhir Takale", "sudhirtakaledmmy@gmail.com");
+        Response expected = new Response(HttpsStatus.BADREQUEST, "Customer doesn't exist");
+
+        // act
+        Response actual = creditCardController.create(customerId);
+
+        // assert
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void shouldNotCreateCreditCardIfCustomerIdIsLessThanZeroIsPassed() {
+        // arrange
+        int customerId = -13;
+
+        // assert
+        assertThrows(IllegalArgumentException.class, () -> creditCardController.create(customerId));
+
+    }
 
 
 }

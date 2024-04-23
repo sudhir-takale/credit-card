@@ -17,7 +17,7 @@ public class CreditCardController {
     public Response create(int customerId) {
         try {
             creditCardService.create(customerId);
-            return new Response(HttpsStatus.OK, "CreditCard created successfully");
+            return new Response(HttpsStatus.OK, "Credit card created successfully");
         } catch (CustomerNotFoundException e) {
             return new Response(HttpsStatus.BADREQUEST, "Customer doesn't exist");
         }

@@ -25,19 +25,11 @@ public class Response {
         return Objects.hash(httpsStatus, response);
     }
 
-    public HttpsStatus getHttpsStatus() {
-        return httpsStatus;
-    }
-
-    public void setHttpsStatus(HttpsStatus httpsStatus) {
-        this.httpsStatus = httpsStatus;
-    }
-
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
+    @Override
+    public String toString() {
+        return "Response{" +
+                "httpsStatus=" + httpsStatus +
+                ", response='" + response + '\'' +
+                '}';
     }
 }
