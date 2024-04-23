@@ -1,7 +1,7 @@
 package com.amaap.creditcard.domain.model.entity;
 
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
-import com.amaap.creditcard.service.validator.CustomerValidator;
+import com.amaap.creditcard.domain.model.entity.validator.CustomerValidator;
 
 import java.util.Objects;
 
@@ -50,5 +50,10 @@ public class Customer {
 
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "emailAddress='" + emailAddress + '\'' + ", id=" + id + ", name='" + name + '\'' + '}';
     }
 }

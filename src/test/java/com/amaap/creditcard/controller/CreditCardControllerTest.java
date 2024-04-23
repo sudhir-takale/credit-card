@@ -15,7 +15,9 @@ public class CreditCardControllerTest {
 
     CustomerController customerController = new CustomerController(new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase())));
 
-    CreditCardController creditCardController = new CreditCardController(new CreditCardService(new InMemoryCreditCardRepository(), new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase()))));
+    CreditCardController creditCardController =
+            new CreditCardController(new CreditCardService(new InMemoryCreditCardRepository(new FakeInMemoryDatabase()),
+                    new CustomerService(new InMemoryCustomerRepository(new FakeInMemoryDatabase()))));
 
 
     @Test

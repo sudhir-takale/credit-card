@@ -26,7 +26,6 @@ public class CustomerService {
     }
 
     public Optional<Customer> getCustomerById(int id) {
-
         return customerRepository.getCustomerById(id);
     }
 }

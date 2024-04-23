@@ -1,5 +1,6 @@
 package com.amaap.creditcard.repository.db;
 
+import com.amaap.creditcard.domain.model.entity.CreditCard;
 import com.amaap.creditcard.domain.model.entity.Customer;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface InMemoryDatabase {
     List<Customer> getCustomers();
 
     Optional<Customer> getCustomerById(int id);
+
+    int insert(CreditCard card);
 }

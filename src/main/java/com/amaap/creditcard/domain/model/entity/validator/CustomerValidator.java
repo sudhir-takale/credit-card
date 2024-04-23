@@ -1,4 +1,4 @@
-package com.amaap.creditcard.service.validator;
+package com.amaap.creditcard.domain.model.entity.validator;
 
 public class CustomerValidator {
     public static boolean validate(String name, String emailAddress) {
