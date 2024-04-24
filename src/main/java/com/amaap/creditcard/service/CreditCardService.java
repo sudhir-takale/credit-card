@@ -4,6 +4,7 @@ import com.amaap.creditcard.domain.model.entity.CreditCard;
 import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.CreditCardRepository;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
+import com.google.inject.Inject;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ public class CreditCardService {
     private final CustomerService customerService;
     private final CreditCardRepository creditCardRepository;
 
+    @Inject
     public CreditCardService(CreditCardRepository creditCardRepository, CustomerService customerService) {
         this.creditCardRepository = creditCardRepository;
         this.customerService = customerService;

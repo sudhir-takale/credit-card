@@ -2,6 +2,7 @@ package com.amaap.creditcard.controller;
 
 import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
+import com.amaap.creditcard.domain.service.SpendProcessor;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCreditCardRepository;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
@@ -23,7 +24,8 @@ public class CreditCardManagementControllerTest {
     TransactionService transactionService =
             new TransactionService(new InMemoryTransactionRepository(new FakeInMemoryDatabase()));
 
-    CreditCardManagementController creditCardController = new CreditCardManagementController(new CreditCardManagementService());
+    CreditCardManagementController creditCardController =
+            new CreditCardManagementController(new CreditCardManagementService(creditCardService, new SpendProcessor(), transactionService));
 
     @Test
     void shouldBeAbleToCheckForAnUnusualSpendByCustomer() {

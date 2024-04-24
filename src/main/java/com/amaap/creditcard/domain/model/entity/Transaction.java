@@ -61,4 +61,12 @@ public class Transaction {
     public int getCardId() {
         return cardId;
     }
+
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public double getAmount() {
+        return this.amount;
+    }
 }
