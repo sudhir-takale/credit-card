@@ -9,10 +9,11 @@ import com.amaap.creditcard.service.exception.TransactionNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.*;
 
 class TransactionServiceTest {
 
@@ -83,7 +84,32 @@ class TransactionServiceTest {
         transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
 
         // assert
-        assertThrows(TransactionNotFoundException.class, () -> transactionService.getTransactionFor(14));
+        assertThrows(TransactionNotFoundException.class, () -> transactionService.getTransactionFor(transactionId));
     }
+
+    @Test
+    void shouldBeAbleToSortTransactionsByMonth() throws InvalidTransactionParameters {
+        // arrange
+        String dateString = "12-03-2024";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        int cardId = 1;
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.parse("19-03-2024", formatter), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.parse("10-03-2024", formatter), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.parse("16-03-2024", formatter), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
+
+        // act
+        Optional<List<Transaction>> transactionsOfPrevMonthOptional = transactionService.getTransactionsOf(cardId, date.getMonthValue(), date.getYear());
+
+        // assert
+        assertTrue(transactionsOfPrevMonthOptional.isPresent());
+        List<Transaction> transactionsOfPrevMonth = transactionsOfPrevMonthOptional.get();
+        assertEquals(3, transactionsOfPrevMonth.size());
+
+    }
+
 
 }

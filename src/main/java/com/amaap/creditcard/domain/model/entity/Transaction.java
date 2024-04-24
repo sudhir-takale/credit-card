@@ -53,4 +53,12 @@ public class Transaction {
     public void setId(int id) {
         this.id = id;
     }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public int getCardId() {
+        return cardId;
+    }
 }
