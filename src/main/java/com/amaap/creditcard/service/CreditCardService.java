@@ -5,12 +5,13 @@ import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.CreditCardRepository;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CreditCardService {
+    private static final int SAVE_SUCCESS = 1;
     private final CustomerService customerService;
     private final CreditCardRepository creditCardRepository;
-    private static final int SAVE_SUCCESS = 1;
 
     public CreditCardService(CreditCardRepository creditCardRepository, CustomerService customerService) {
         this.creditCardRepository = creditCardRepository;
@@ -29,6 +30,11 @@ public class CreditCardService {
         } else {
             throw new CustomerNotFoundException("Customer not found with id " + customerId);
         }
+    }
+
+
+    public List<CreditCard> getCreditCards() {
+        return creditCardRepository.getCreditCards();
     }
 }
 

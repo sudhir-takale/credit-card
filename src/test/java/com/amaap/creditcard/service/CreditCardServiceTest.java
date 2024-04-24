@@ -1,5 +1,6 @@
 package com.amaap.creditcard.service;
 
+import com.amaap.creditcard.domain.model.entity.CreditCard;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCreditCardRepository;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
@@ -7,8 +8,9 @@ import com.amaap.creditcard.service.exception.CustomerNotFoundException;
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 class CreditCardServiceTest {
 
@@ -52,6 +54,26 @@ class CreditCardServiceTest {
 
         // assert
         assertThrows(IllegalArgumentException.class, () -> creditCardService.create(customerId));
+
+    }
+
+    @Test
+    void shouldBeAbleToGetCreditCards() throws InvalidCustomerDataException, CustomerNotFoundException {
+        // arrange
+        int customerId = 1;
+        customerService.create("Sudhir Takale", "sudhirtakale@gmail.com");
+        customerService.create("Sudhir Takale", "sudhirtakale@gmail.com");
+        customerService.create("Sudhir Takale", "sudhirtakale@gmail.com");
+        creditCardService.create(customerId);
+        creditCardService.create(2);
+        creditCardService.create(3);
+
+        // act
+        List<CreditCard> creditCards = creditCardService.getCreditCards();
+
+        // assert
+        assertEquals(3, creditCards.size());
+
 
     }
 

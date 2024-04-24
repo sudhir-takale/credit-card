@@ -59,4 +59,9 @@ public class FakeInMemoryDatabase implements InMemoryDatabase {
         return transactionTable.stream().filter(transaction -> transaction.getId() == transactionId).findFirst();
     }
 
+    @Override
+    public List<CreditCard> getCreditCards() {
+        return this.creditCardTable;
+    }
+
 }

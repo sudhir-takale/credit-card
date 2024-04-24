@@ -21,4 +21,6 @@ public interface InMemoryDatabase {
     List<Transaction> getTransactions();
 
     Optional<Transaction> getTransactionFor(int transactionId);
+
+    List<CreditCard> getCreditCards();
 }
