@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InMemoryCustomerRepositoryTest {
     InMemoryCustomerRepository inMemoryCustomerRepository = new InMemoryCustomerRepository(new FakeInMemoryDatabase());

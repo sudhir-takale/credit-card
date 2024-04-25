@@ -7,7 +7,6 @@ import com.amaap.creditcard.domain.service.TransactionAnalyzer;
 import com.amaap.creditcard.domain.service.dto.UnusualSpendDto;
 import com.amaap.creditcard.service.communication.EmailService;
 import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
-import com.amaap.creditcard.service.validator.AlertValidator;
 import com.google.inject.Inject;
 
 import java.time.LocalDate;
@@ -61,15 +60,14 @@ public class CreditCardManagementService {
         for (Map.Entry<Category, Double> entry : unusualSpentCategoriesWithAmount.entrySet()) {
             Category category = entry.getKey();
             double amount = entry.getValue();
-            String formattedAmount = "Rs" + String.format("%.2f", amount);
+            String formattedAmount = "Rs " + String.format("%.2f", amount);
             body.append("* You spent ").append(formattedAmount).append(" on ").append(category).append("\n");
         }
 
         body.append("\n");
         body.append("\nThanks,\nThe Credit Card Company\n");
-
         String messageBody = body.toString();
-        if (!AlertValidator.validate(messageBody, emailAddress)) throw new InvalidEmailArgumentException("check email");
+
         EmailService.sendEmail("Your Spending amount summary - Credit card Company", messageBody, emailAddress);
     }
 

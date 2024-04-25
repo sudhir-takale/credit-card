@@ -14,7 +14,8 @@ import com.amaap.creditcard.service.TransactionService;
 import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class CreditCardManagementControllerTest {
 

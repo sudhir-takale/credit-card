@@ -17,6 +17,5 @@ public class CreditCardManagementController {
     public Response checkForUnusualSpend() throws InvalidEmailArgumentException {
         cardManagementService.checkForUnusualSpend();
         return new Response(HttpsStatus.OK, "Success");
-
     }
 }

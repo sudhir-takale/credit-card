@@ -2,7 +2,7 @@ package com.amaap.creditcard.repository.impl;
 
 import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.repository.db.InMemoryDatabase;
-import com.amaap.creditcard.service.TransactionRepository;
+import com.amaap.creditcard.repository.TransactionRepository;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;

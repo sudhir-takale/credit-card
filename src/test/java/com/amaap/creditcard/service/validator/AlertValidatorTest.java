@@ -1,9 +1,9 @@
 package com.amaap.creditcard.service.validator;
 
+import com.amaap.creditcard.service.communication.validator.AlertValidator;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 class AlertValidatorTest {
 
@@ -38,7 +38,7 @@ class AlertValidatorTest {
     @Test
     void shouldReturnTrueIfValidParameterHasPassed() {
         // assert
-        assertFalse(AlertValidator.validate("I am here", "sudhirtakale99@gmail.com"));
+        assertTrue(AlertValidator.validate("I am here", "sudhirtakale99@gmail.com"));
 
     }
 

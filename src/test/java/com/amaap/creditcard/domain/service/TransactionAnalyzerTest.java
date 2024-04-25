@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static com.amaap.creditcard.domain.model.entity.Transaction.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TransactionAnalyzerTest {
 
@@ -45,7 +45,6 @@ class TransactionAnalyzerTest {
         // assert
         assertNotNull(unusualSpendDto);
         assertEquals(0, unusualSpendDto.getUnusualSpendTransactions().size());
-        System.out.println(unusualSpendDto.getUnusualSpendAmount());
         assertEquals(0.0, unusualSpendDto.getUnusualSpendAmount(), 0.01);
 
     }

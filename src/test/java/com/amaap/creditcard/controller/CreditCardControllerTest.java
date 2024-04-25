@@ -9,8 +9,9 @@ import com.amaap.creditcard.service.CreditCardService;
 import com.amaap.creditcard.service.CustomerService;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class CreditCardControllerTest {
 

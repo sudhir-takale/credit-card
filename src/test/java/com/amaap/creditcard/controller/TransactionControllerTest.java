@@ -8,14 +8,13 @@ import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryTransactionRepository;
 import com.amaap.creditcard.service.TransactionService;
-import com.amaap.creditcard.util.TransactionBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TransactionControllerTest {
 
@@ -41,8 +40,8 @@ public class TransactionControllerTest {
     @Test
     void shouldBeAbleToGetAllTransactions() throws InvalidTransactionParameters {
         // arrange
-        transactionController.createTransaction(1,LocalDate.now(),Category.TRAVEL,45.5);
-        transactionController.createTransaction(1,LocalDate.now(),Category.TRAVEL,34.4);
+        transactionController.createTransaction(1, LocalDate.now(), Category.TRAVEL, 45.5);
+        transactionController.createTransaction(1, LocalDate.now(), Category.TRAVEL, 34.4);
 
         // act
         List<Transaction> transactions = transactionController.getTransactions();

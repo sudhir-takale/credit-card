@@ -1,4 +1,4 @@
-package com.amaap.creditcard.service;
+package com.amaap.creditcard.repository;
 
 import com.amaap.creditcard.domain.model.entity.Transaction;
 

@@ -3,9 +3,7 @@ package com.amaap.creditcard.domain.model.entity.validator;
 import org.junit.jupiter.api.Test;
 
 import static com.amaap.creditcard.domain.model.entity.validator.CustomerValidator.validate;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerValidatorTest {
 

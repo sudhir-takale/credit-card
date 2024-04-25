@@ -1,5 +1,8 @@
 package com.amaap.creditcard.service.communication;
 
+import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
+import com.amaap.creditcard.service.communication.validator.AlertValidator;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -11,7 +14,10 @@ import java.util.Properties;
 public class EmailService {
 
 
-    public static void sendEmail(String subject, String body, String email) {
+    public static void sendEmail(String subject, String body, String email) throws InvalidEmailArgumentException {
+
+        if (!AlertValidator.validate(body, email))
+            throw new InvalidEmailArgumentException("check " + "email address" + email);
         String fromEmail = "sudhirtakale99@gmail.com";
         String toEmail = email;
         String password = "vvye muxc nawq phgy";
