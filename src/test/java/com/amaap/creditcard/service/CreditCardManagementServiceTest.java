@@ -1,9 +1,8 @@
 package com.amaap.creditcard.service;
 
-import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.entity.exception.InvalidTransactionParameters;
 import com.amaap.creditcard.domain.model.valueobject.Category;
-import com.amaap.creditcard.domain.service.SpendProcessor;
+import com.amaap.creditcard.domain.service.TransactionAnalyzer;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.db.InMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCreditCardRepository;
@@ -11,6 +10,7 @@ import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.repository.impl.InMemoryTransactionRepository;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -27,11 +27,11 @@ class CreditCardManagementServiceTest {
 
     TransactionService transactionService = new TransactionService(new InMemoryTransactionRepository(inMemoryDatabase));
 
-    CreditCardManagementService cardManagementService = new CreditCardManagementService(creditCardService, new SpendProcessor(), transactionService);
+    CreditCardManagementService cardManagementService = new CreditCardManagementService(creditCardService, new TransactionAnalyzer(), transactionService);
 
 
     @Test
-    void shouldBeAbleToCheckForUnusualSpendByTheCustomer() throws InvalidCustomerDataException, CustomerNotFoundException, InvalidTransactionParameters {
+    void shouldBeAbleToCheckForUnusualSpendByTheCustomer() throws InvalidCustomerDataException, CustomerNotFoundException, InvalidTransactionParameters, InvalidEmailArgumentException {
         // arrange
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         customerService.create("Sudhir Takale", "shtakale1111@gmail.com.com");

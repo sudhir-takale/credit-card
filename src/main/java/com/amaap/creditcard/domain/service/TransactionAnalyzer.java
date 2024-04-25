@@ -11,14 +11,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class SpendProcessor {
-
+public class TransactionAnalyzer {
 
     public UnusualSpendDto processUnusualSpend(List<Transaction> transactionsOfCurrentMonth, List<Transaction> transactionsOfPreviousMonth, int threshold) {
 
         Map<Category, Double> unusualSpentCategories = new HashMap<>();
         Map<Category, Double> usualSpentCategories = new HashMap<>();
-
 
         Map<Category, Double> currentMonthTransactions = transactionsOfCurrentMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
         Map<Category, Double> lastMonthTransactions = transactionsOfPreviousMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
@@ -42,11 +40,6 @@ public class SpendProcessor {
                 unusualSpentCategories.put(category, currentAmount);
             }
         }
-
-
-        usualSpentCategories.forEach((category, totalAmount) -> System.out.println(category + ": " + totalAmount));
-        System.out.println("un");
-        unusualSpentCategories.forEach((category, totalAmount) -> System.out.println(category + ": " + totalAmount));
         return getTotalUnusualSpendAmount(unusualSpentCategories, usualSpentCategories);
     }
 

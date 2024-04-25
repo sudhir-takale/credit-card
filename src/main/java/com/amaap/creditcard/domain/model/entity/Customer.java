@@ -5,6 +5,8 @@ import com.amaap.creditcard.domain.model.entity.validator.CustomerValidator;
 
 import java.util.Objects;
 
+import static com.amaap.creditcard.domain.model.entity.validator.CustomerValidator.validate;
+
 public class Customer {
     private int id;
     private String name;
@@ -17,7 +19,7 @@ public class Customer {
     }
 
     public static Customer create(String name, String emailAddress) throws InvalidCustomerDataException {
-        if (!CustomerValidator.validate(name, emailAddress))
+        if (!validate(name, emailAddress))
             throw new InvalidCustomerDataException("Invalid customer data has been passed");
 
         return new Customer(name, emailAddress);

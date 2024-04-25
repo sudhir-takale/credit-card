@@ -14,7 +14,7 @@ import static com.amaap.creditcard.domain.model.entity.Transaction.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-class SpendProcessorTest {
+class TransactionAnalyzerTest {
 
 
     @Test
@@ -24,7 +24,7 @@ class SpendProcessorTest {
         List<Transaction> lastMonthTransactions = List.of(create(1, LocalDate.now(), Category.TRAVEL, 12.34), create(1, LocalDate.parse("10-03-2024", DateTimeFormatter.ofPattern("dd-MM-yyyy")), Category.TRAVEL, 45.5), create(1, LocalDate.parse("16-03-2024", DateTimeFormatter.ofPattern("dd-MM-yyyy")), Category.TRAVEL, 15.5));
 
         //act
-        UnusualSpendDto unusualSpendDto = new SpendProcessor().processUnusualSpend(currentMonthTransactions, lastMonthTransactions, 20);
+        UnusualSpendDto unusualSpendDto = new TransactionAnalyzer().processUnusualSpend(currentMonthTransactions, lastMonthTransactions, 20);
 
         // assert
         assertNotNull(unusualSpendDto);
@@ -40,7 +40,7 @@ class SpendProcessorTest {
         List<Transaction> lastMonthTransactions = List.of(create(1, LocalDate.now(), Category.TRAVEL, 2.34));
 
         // act
-        UnusualSpendDto unusualSpendDto = new SpendProcessor().processUnusualSpend(currentMonthTransactions, lastMonthTransactions, 20);
+        UnusualSpendDto unusualSpendDto = new TransactionAnalyzer().processUnusualSpend(currentMonthTransactions, lastMonthTransactions, 20);
 
         // assert
         assertNotNull(unusualSpendDto);
