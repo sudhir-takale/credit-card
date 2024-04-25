@@ -40,13 +40,13 @@ public class CreditCardManagementService {
             }
             if (spendDto != null) {
 
-                structureTransaction(creditCard.getCustomer().getEmailAddress(), creditCard.getCustomer().getName(), spendDto);
+                composeEmail(creditCard.getCustomer().getEmailAddress(), creditCard.getCustomer().getName(), spendDto);
             }
         }
         return true;
     }
 
-    public void structureTransaction(String emailAddress, String name, UnusualSpendDto spendDto) throws InvalidEmailArgumentException {
+    public void composeEmail(String emailAddress, String name, UnusualSpendDto spendDto) throws InvalidEmailArgumentException {
 
         Map<Category, Double> unusualSpentCategoriesWithAmount = spendDto.getUnusualSpendTransactions();
         Double unusualAmountSpend = spendDto.getUnusualSpendAmount();

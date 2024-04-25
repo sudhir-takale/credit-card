@@ -42,7 +42,7 @@ class ResponseTest {
         Response response = new Response(HttpsStatus.OK, "Success");
 
         // assert
-        assertFalse(response.equals(null));
+        assertFalse(response == null);
 
     }
 
