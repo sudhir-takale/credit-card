@@ -1,7 +1,6 @@
 package com.amaap.creditcard.domain.model.entity;
 
 import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
-import com.amaap.creditcard.domain.model.entity.validator.CustomerValidator;
 
 import java.util.Objects;
 
