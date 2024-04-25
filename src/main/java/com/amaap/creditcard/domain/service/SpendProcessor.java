@@ -14,6 +14,7 @@ public class SpendProcessor {
 
 
     public UnusualSpendDto processUnusualSpend(List<Transaction> transactionsOfCurrentMonth, List<Transaction> transactionsOfPreviousMonth, int threshold) {
+
         Map<Category, Double> unusualSpentCategories = new HashMap<>();
         Map<Category, Double> usualSpentCategories = new HashMap<>();
 

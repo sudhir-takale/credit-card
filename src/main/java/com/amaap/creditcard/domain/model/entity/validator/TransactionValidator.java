@@ -6,6 +6,6 @@ import java.time.LocalDate;
 
 public class TransactionValidator {
     public static boolean validate(int cardId, LocalDate date, Category category, double amount) {
-        return !(cardId <= 0);
+        return (cardId >= 0 && category != null && amount >= 0);
     }
 }

@@ -38,7 +38,6 @@ public class CreditCardManagementService {
 
                 extractSpend(creditCard.getCustomer().getEmailAddress(), creditCard.getCustomer().getName(), spendDto);
             }
-
         }
         return true;
     }
