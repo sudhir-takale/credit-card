@@ -4,6 +4,7 @@ import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.domain.service.dto.UnusualSpendDto;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ public class SpendProcessor {
 
         Map<Category, Double> unusualSpentCategories = new HashMap<>();
         Map<Category, Double> usualSpentCategories = new HashMap<>();
+
 
         Map<Category, Double> currentMonthTransactions = transactionsOfCurrentMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
         Map<Category, Double> lastMonthTransactions = transactionsOfPreviousMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
@@ -41,13 +43,21 @@ public class SpendProcessor {
             }
         }
 
+
+        usualSpentCategories.forEach((category, totalAmount) -> System.out.println(category + ": " + totalAmount));
+        System.out.println("un");
+        unusualSpentCategories.forEach((category, totalAmount) -> System.out.println(category + ": " + totalAmount));
         return getTotalUnusualSpendAmount(unusualSpentCategories, usualSpentCategories);
     }
 
     private UnusualSpendDto getTotalUnusualSpendAmount(Map<Category, Double> unusualSpentCategories, Map<Category, Double> usualSpentCategories) {
         double unusualSpendAmount = unusualSpentCategories.values().stream().mapToDouble(Double::doubleValue).sum();
+        double newUnusualSpendAmount = Double.parseDouble(new DecimalFormat("#.###").format(unusualSpendAmount));
+
         double usualSpendAmount = usualSpentCategories.values().stream().mapToDouble(Double::doubleValue).sum();
-        return new UnusualSpendDto(unusualSpentCategories, unusualSpendAmount, usualSpentCategories, usualSpendAmount);
+        double newUsualSpendAmount = Double.parseDouble(new DecimalFormat("#.###").format(usualSpendAmount));
+
+        return new UnusualSpendDto(unusualSpentCategories, newUnusualSpendAmount, usualSpentCategories, newUsualSpendAmount);
     }
 
 }

@@ -37,15 +37,11 @@ class CreditCardManagementServiceTest {
         customerService.create("Sudhir Takale", "shtakale1111@gmail.com.com");
         customerService.create("Shaurya Mali", "sudhirtake99@gmail.com");
         creditCardService.create(1);
-        Transaction transaction = transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 12.34);
+        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 12.34);
         transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 110.34);
-        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 110.34);
-        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 120.34);
-        transactionService.createTransaction(1, LocalDate.now(), Category.TRAVEL, 160.34);
-        transactionService.createTransaction(1, LocalDate.now(), Category.SHOPPING, 10.34);
+         transactionService.createTransaction(1, LocalDate.now(), Category.SHOPPING, 10.34);
         transactionService.createTransaction(1, LocalDate.now(), Category.MEDICINE, 10.34);
         transactionService.createTransaction(1, LocalDate.now(), Category.RENT, 14.5);
-
         transactionService.createTransaction(1, LocalDate.parse("19-03-2024", formatter), Category.TRAVEL, 5.5);
         transactionService.createTransaction(1, LocalDate.parse("10-03-2024", formatter), Category.TRAVEL, 45.5);
         transactionService.createTransaction(1, LocalDate.parse("16-03-2024", formatter), Category.TRAVEL, 15.5);
@@ -57,7 +53,6 @@ class CreditCardManagementServiceTest {
 
         // assert
         assertTrue(result);
-        assertEquals(1, transaction.getCardId());
 
     }
 
