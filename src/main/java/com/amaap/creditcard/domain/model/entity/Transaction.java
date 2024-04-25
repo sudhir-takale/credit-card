@@ -69,4 +69,9 @@ public class Transaction {
     public double getAmount() {
         return this.amount;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" + "amount=" + amount + ", id=" + id + ", cardId=" + cardId + ", date=" + date + ", category=" + category + '}';
+    }
 }

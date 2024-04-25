@@ -32,7 +32,7 @@ public class CreditCardManagementService {
             List<Transaction> transactionsOfPreviousMonth = transactionService.getTransactionsOf(creditCard.getCustomer().getId(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getYear()).get();
             List<Transaction> transactionsOfCurrentMonth = transactionService.getTransactionsOf(creditCard.getCustomer().getId(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()).get();
 
-            UnusualSpendDto spendDto = spendProcessor.processUnusualSpend(transactionsOfCurrentMonth, transactionsOfPreviousMonth, 50);
+            UnusualSpendDto spendDto = spendProcessor.processUnusualSpend(transactionsOfCurrentMonth, transactionsOfPreviousMonth, 10);
 
             if (spendDto != null) {
 
@@ -49,6 +49,9 @@ public class CreditCardManagementService {
         Double usualSpendAmount = spendDto.getTotalSpendAmount();
 
         StringBuilder body = new StringBuilder(" \nHello " + name + "!\nWe have detected unusually high spending on your card in these categories:\n");
+        body.append("\n");
+        body.append("Total Unusual spending of ").append("Rs ").append(unusualAmountSpend).append(" detected!\n");
+        body.append("Your usual spending of last month was Rs ").append(usualSpendAmount).append("\n");
 
         for (Map.Entry<Category, Double> entry : spendRecordDto.entrySet()) {
             Category category = entry.getKey();
@@ -58,12 +61,10 @@ public class CreditCardManagementService {
         }
 
         body.append("\n");
-        body.append("Total Unusual spending of ").append("Rs").append(unusualAmountSpend).append(" detected!\n");
-        body.append("Your usual spending of last month was Rs").append(usualSpendAmount).append("\n");
         body.append("\nThanks,\nThe Credit Card Company\n");
 
         String messageBody = body.toString();
-        EmailService.sendEmail("Your spend is", messageBody, "sudhirtakale99@gmail.com");
+        EmailService.sendEmail("Your Spending amount summary - Credit card Company", messageBody, emailAddress);
     }
 
 }

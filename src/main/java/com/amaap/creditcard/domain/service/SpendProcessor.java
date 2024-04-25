@@ -4,44 +4,49 @@ import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.domain.service.dto.UnusualSpendDto;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 
 public class SpendProcessor {
 
 
     public UnusualSpendDto processUnusualSpend(List<Transaction> transactionsOfCurrentMonth, List<Transaction> transactionsOfPreviousMonth, int threshold) {
+        Map<Category, Double> unusualSpentCategories = new HashMap<>();
+        Map<Category, Double> usualSpentCategories = new HashMap<>();
 
-        List<Transaction> unusualSpendTransactions = new ArrayList<>();
-        List<Transaction> usualSpendTransactions = new ArrayList<>();
+        Map<Category, Double> currentMonthTransactions = transactionsOfCurrentMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
+        Map<Category, Double> lastMonthTransactions = transactionsOfPreviousMonth.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
 
-        for (Transaction currentTransaction : transactionsOfCurrentMonth) {
-            Category currentCategory = currentTransaction.getCategory();
-            double currentAmount = currentTransaction.getAmount();
 
-            Transaction previousTransaction = transactionsOfPreviousMonth.stream().filter(transaction -> transaction.getCategory().equals(currentCategory)).findFirst().orElse(null);
+        for (Map.Entry<Category, Double> currentEntry : currentMonthTransactions.entrySet()) {
+            Category category = currentEntry.getKey();
+            Double currentAmount = currentEntry.getValue();
 
-            if (previousTransaction != null) {
-                double previousAmount = previousTransaction.getAmount();
-                double percentageIncrease = ((currentAmount - previousAmount) / previousAmount) * 100;
+            if (lastMonthTransactions.containsKey(category)) {
+                Double lastMonthAmount = lastMonthTransactions.get(category);
 
-                if (percentageIncrease >= threshold) {
-                    unusualSpendTransactions.add(currentTransaction);
-                } else usualSpendTransactions.add(currentTransaction);
+                double increasePercentage = ((currentAmount - lastMonthAmount) / lastMonthAmount) * 100;
+
+                if (Math.abs(increasePercentage) > threshold) {
+                    unusualSpentCategories.put(category, currentAmount);
+                } else {
+                    usualSpentCategories.put(category, currentAmount);
+                }
+            } else {
+                unusualSpentCategories.put(category, currentAmount);
             }
         }
 
-        Map<Category, Double> unusualSpendCategory = unusualSpendTransactions.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
-        Map<Category, Double> usualSpendCategory = usualSpendTransactions.stream().collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
-        return getTotalUnusualSpendAmount(unusualSpendCategory, usualSpendCategory);
+        return getTotalUnusualSpendAmount(unusualSpentCategories, usualSpentCategories);
     }
 
-    private UnusualSpendDto getTotalUnusualSpendAmount(Map<Category, Double> unusualSpendTransactions, Map<Category, Double> usualSpendTransactions) {
-        double unusualSpendAmount = unusualSpendTransactions.values().stream().mapToDouble(Double::doubleValue).sum();
-        double usualSpendAmount = usualSpendTransactions.values().stream().mapToDouble(Double::doubleValue).sum();
-        return new UnusualSpendDto(unusualSpendTransactions, unusualSpendAmount, usualSpendTransactions, usualSpendAmount);
+    private UnusualSpendDto getTotalUnusualSpendAmount(Map<Category, Double> unusualSpentCategories, Map<Category, Double> usualSpentCategories) {
+        double unusualSpendAmount = unusualSpentCategories.values().stream().mapToDouble(Double::doubleValue).sum();
+        double usualSpendAmount = usualSpentCategories.values().stream().mapToDouble(Double::doubleValue).sum();
+        return new UnusualSpendDto(unusualSpentCategories, unusualSpendAmount, usualSpentCategories, usualSpendAmount);
     }
 
 }
