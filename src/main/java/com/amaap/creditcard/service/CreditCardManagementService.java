@@ -34,8 +34,11 @@ public class CreditCardManagementService {
             List<Transaction> transactionsOfPreviousMonth = transactionService.getTransactionsOf(creditCard.getCustomer().getId(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getYear()).get();
             List<Transaction> transactionsOfCurrentMonth = transactionService.getTransactionsOf(creditCard.getCustomer().getId(), LocalDate.now().getMonthValue(), LocalDate.now().getYear()).get();
 
-            UnusualSpendDto spendDto = transactionAnalyzer.processUnusualSpend(transactionsOfCurrentMonth, transactionsOfPreviousMonth, 10);
+            UnusualSpendDto spendDto = null;
+            if (!(transactionsOfPreviousMonth.isEmpty() && transactionsOfCurrentMonth.isEmpty())) {
 
+                spendDto = transactionAnalyzer.processUnusualSpend(transactionsOfCurrentMonth, transactionsOfPreviousMonth, 10);
+            }
             if (spendDto != null) {
 
                 structureTransaction(creditCard.getCustomer().getEmailAddress(), creditCard.getCustomer().getName(), spendDto);
@@ -44,7 +47,7 @@ public class CreditCardManagementService {
         return true;
     }
 
-    private void structureTransaction(String emailAddress, String name, UnusualSpendDto spendDto) throws InvalidEmailArgumentException {
+    public void structureTransaction(String emailAddress, String name, UnusualSpendDto spendDto) throws InvalidEmailArgumentException {
 
         Map<Category, Double> unusualSpentCategoriesWithAmount = spendDto.getUnusualSpendTransactions();
         Double unusualAmountSpend = spendDto.getUnusualSpendAmount();

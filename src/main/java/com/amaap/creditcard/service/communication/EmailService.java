@@ -1,23 +1,17 @@
 package com.amaap.creditcard.service.communication;
 
-import com.amaap.creditcard.domain.model.entity.Transaction;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.List;
 import java.util.Properties;
 
 public class EmailService {
 
 
-    public static void sendEmail(String subject, String body, String email){
-//        if (!isValidEmail(email)) throw new InvalidEmailIdException("Invalid email id:"+email);
-//        if (body == null || body.isEmpty()) throw new InvalidEmailBodyException("Email body should have content");
-//        if(subject == null || subject.isEmpty()) throw new InvalidEmailSubjectException("Email subject is must");
+    public static void sendEmail(String subject, String body, String email) {
         String fromEmail = "sudhirtakale99@gmail.com";
         String toEmail = email;
         String password = "vvye muxc nawq phgy";

@@ -4,12 +4,13 @@ import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
 import com.amaap.creditcard.service.CreditCardService;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
+import com.google.inject.Inject;
 
 public class CreditCardController {
 
     private final CreditCardService creditCardService;
 
-
+    @Inject
     public CreditCardController(CreditCardService creditCardService) {
         this.creditCardService = creditCardService;
     }

@@ -4,6 +4,7 @@ import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.entity.exception.InvalidTransactionParameters;
 import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.service.exception.TransactionNotFoundException;
+import com.google.inject.Inject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
+    @Inject
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }

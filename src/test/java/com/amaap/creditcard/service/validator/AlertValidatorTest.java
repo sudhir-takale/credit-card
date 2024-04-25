@@ -2,9 +2,20 @@ package com.amaap.creditcard.service.validator;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class AlertValidatorTest {
+
+
+    @Test
+    void shouldBeAbleToCreateInstanceOfEmailValidator() {
+        // arrange & act
+        AlertValidator alertValidator = new AlertValidator();
+
+        // assert
+        assertNotNull(alertValidator);
+    }
 
     @Test
     void shouldReturnFalseWhenInvalidEmailAddressIsPassed() {

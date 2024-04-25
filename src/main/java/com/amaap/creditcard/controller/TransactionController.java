@@ -6,6 +6,7 @@ import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.domain.model.entity.exception.InvalidTransactionParameters;
 import com.amaap.creditcard.domain.model.valueobject.Category;
 import com.amaap.creditcard.service.TransactionService;
+import com.google.inject.Inject;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +15,7 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
+    @Inject
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }

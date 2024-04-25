@@ -3,6 +3,7 @@ package com.amaap.creditcard.repository.impl;
 import com.amaap.creditcard.domain.model.entity.Transaction;
 import com.amaap.creditcard.repository.db.InMemoryDatabase;
 import com.amaap.creditcard.service.TransactionRepository;
+import com.google.inject.Inject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.Optional;
 public class InMemoryTransactionRepository implements TransactionRepository {
 
 
-    private InMemoryDatabase inMemoryDatabase;
+    private final InMemoryDatabase inMemoryDatabase;
 
+    @Inject
     public InMemoryTransactionRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;
     }
