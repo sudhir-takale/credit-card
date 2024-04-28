@@ -1,7 +1,7 @@
 package com.amaap.creditcard;
 
 import com.amaap.creditcard.controller.CreditCardController;
-import com.amaap.creditcard.controller.CreditCardManagementController;
+import com.amaap.creditcard.controller.SpendController;
 import com.amaap.creditcard.controller.CustomerController;
 import com.amaap.creditcard.controller.TransactionController;
 import com.amaap.creditcard.domain.model.valueobject.Category;
@@ -21,7 +21,7 @@ public class Main {
         TransactionController transactionController = injector.getInstance(TransactionController.class);
         CreditCardController creditCardController = injector.getInstance(CreditCardController.class);
         CustomerController customerController = injector.getInstance(CustomerController.class);
-        CreditCardManagementController creditCardManagementController = injector.getInstance(CreditCardManagementController.class);
+        SpendController spendController = injector.getInstance(SpendController.class);
 
         System.out.println(customerController.create("Sudhir Takale", "sudhirtakale99@gmail.com"));
         System.out.println(customerController.create("Shaurya Mali", "shtakale1111@gmail.com"));
@@ -38,7 +38,7 @@ public class Main {
         transactionController.createTransaction(1, LocalDate.now(), Category.SHOPPING, 934.2);
         transactionController.createTransaction(1, LocalDate.now(), Category.SHOPPING, 234.2);
 
-        System.out.println(creditCardManagementController.checkForUnusualSpend());
+        System.out.println(spendController.checkForUnusualSpend());
 
     }
 }

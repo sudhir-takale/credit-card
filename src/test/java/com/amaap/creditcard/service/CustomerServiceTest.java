@@ -3,7 +3,7 @@ package com.amaap.creditcard.service;
 import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
-import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.domain.model.entity.exception.InvalidCustomerDataException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

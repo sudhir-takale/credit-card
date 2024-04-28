@@ -14,13 +14,14 @@ import java.util.List;
 import java.util.Map;
 
 
-public class CreditCardManagementService {
+public class SpendService {
     private final TransactionAnalyzer transactionAnalyzer;
     private final CreditCardService creditCardService;
     private final TransactionService transactionService;
 
     @Inject
-    public CreditCardManagementService(CreditCardService creditCardService, TransactionAnalyzer transactionAnalyzer, TransactionService transactionService) {
+    public SpendService(CreditCardService creditCardService, TransactionAnalyzer transactionAnalyzer,
+                        TransactionService transactionService) {
         this.creditCardService = creditCardService;
         this.transactionAnalyzer = transactionAnalyzer;
         this.transactionService = transactionService;

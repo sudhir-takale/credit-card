@@ -4,7 +4,7 @@ import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
 import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.service.CustomerService;
-import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.domain.model.entity.exception.InvalidCustomerDataException;
 import com.google.inject.Inject;
 
 import java.util.List;

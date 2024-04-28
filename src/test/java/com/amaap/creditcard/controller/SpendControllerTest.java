@@ -7,7 +7,7 @@ import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCreditCardRepository;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.repository.impl.InMemoryTransactionRepository;
-import com.amaap.creditcard.service.CreditCardManagementService;
+import com.amaap.creditcard.service.SpendService;
 import com.amaap.creditcard.service.CreditCardService;
 import com.amaap.creditcard.service.CustomerService;
 import com.amaap.creditcard.service.TransactionService;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class CreditCardManagementControllerTest {
+public class SpendControllerTest {
 
     CreditCardService creditCardService =
             new CreditCardService(new InMemoryCreditCardRepository(new FakeInMemoryDatabase()),
@@ -26,8 +26,8 @@ public class CreditCardManagementControllerTest {
     TransactionService transactionService =
             new TransactionService(new InMemoryTransactionRepository(new FakeInMemoryDatabase()));
 
-    CreditCardManagementController creditCardController =
-            new CreditCardManagementController(new CreditCardManagementService(creditCardService, new TransactionAnalyzer(), transactionService));
+    SpendController creditCardController =
+            new SpendController(new SpendService(creditCardService, new TransactionAnalyzer(), transactionService));
 
     @Test
     void shouldBeAbleToCheckForAnUnusualSpendByCustomer() throws InvalidEmailArgumentException {

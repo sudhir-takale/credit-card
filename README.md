@@ -73,14 +73,14 @@ Extensions -
     - TransactionController - handle all operations related with transaction like createTransaction, getTransactions and
     - CustomerController -    handle operations related with Customer
     - CreditCard          -   handle creditcard creation, updation etc.
-    - CreditCardManagerController    -   handle operations related with send alert, trigger analyzer
+    - SpendController    -   handle operations related with send alert, trigger analyzer
 
 ### Service
 
     - TransactionService - perform operations related with transaction service  
     - CustomerService     - perform operations related with customer
     - CrediCardService    - peforma operations related with credit card service
-    - CreditCardManagementService    - used to trigger the domain serice and email send service
+    - SpendService    - used to trigger the domain serice and email send service
         - checkForUnsualSpend
         - Send Email Alert
     - EmailService     - to send email alert to customer
@@ -100,9 +100,9 @@ Extensions -
   - pass id if exist create credit card else throws exception
 - createTransaction 
   - make transaction which has credit cardId for reference 
-- CreditCardManagementController will call to CheckForUnsusaulSpendMethod
+- SpendController will call to CheckForUnusualSpendMethod
   - it will fetches all credit cardFrom Credit card service and related transactions
   - and it will pass the currentMonthTransactions and lastMonthTransactions to domain service
 - Domain service will create the map of category and associated amount and create a UnsualSpendDTO
 - UnusualSpendDTO is consumed by the composeEmailMethod which will compose email and call to EmailService 
-- EmailService will sendEmail alert to customer who has unsusual spend
+- EmailService will sendEmail alert to customer who has unusual spend

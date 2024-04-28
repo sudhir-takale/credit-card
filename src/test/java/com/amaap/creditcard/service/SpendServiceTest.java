@@ -10,7 +10,7 @@ import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.repository.impl.InMemoryTransactionRepository;
 import com.amaap.creditcard.service.communication.EmailService;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
-import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.domain.model.entity.exception.InvalidCustomerDataException;
 import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class CreditCardManagementServiceTest {
+class SpendServiceTest {
     InMemoryDatabase inMemoryDatabase = new FakeInMemoryDatabase();
 
     CustomerService customerService = new CustomerService(new InMemoryCustomerRepository(inMemoryDatabase));
@@ -28,7 +28,7 @@ class CreditCardManagementServiceTest {
 
     TransactionService transactionService = new TransactionService(new InMemoryTransactionRepository(inMemoryDatabase));
 
-    CreditCardManagementService cardManagementService = new CreditCardManagementService(creditCardService, new TransactionAnalyzer(), transactionService);
+    SpendService cardManagementService = new SpendService(creditCardService, new TransactionAnalyzer(), transactionService);
 
 
     @Test

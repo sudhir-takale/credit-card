@@ -2,7 +2,7 @@ package com.amaap.creditcard.service;
 
 import com.amaap.creditcard.domain.model.entity.Customer;
 import com.amaap.creditcard.repository.CustomerRepository;
-import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.domain.model.entity.exception.InvalidCustomerDataException;
 import com.google.inject.Inject;
 
 import java.util.List;

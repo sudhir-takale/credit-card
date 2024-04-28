@@ -5,7 +5,7 @@ import com.amaap.creditcard.repository.db.FakeInMemoryDatabase;
 import com.amaap.creditcard.repository.impl.InMemoryCreditCardRepository;
 import com.amaap.creditcard.repository.impl.InMemoryCustomerRepository;
 import com.amaap.creditcard.service.exception.CustomerNotFoundException;
-import com.amaap.creditcard.service.exception.InvalidCustomerDataException;
+import com.amaap.creditcard.domain.model.entity.exception.InvalidCustomerDataException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

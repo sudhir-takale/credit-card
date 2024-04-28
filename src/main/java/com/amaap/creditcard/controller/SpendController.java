@@ -2,15 +2,15 @@ package com.amaap.creditcard.controller;
 
 import com.amaap.creditcard.controller.dto.HttpsStatus;
 import com.amaap.creditcard.controller.dto.Response;
-import com.amaap.creditcard.service.CreditCardManagementService;
+import com.amaap.creditcard.service.SpendService;
 import com.amaap.creditcard.service.exception.InvalidEmailArgumentException;
 import com.google.inject.Inject;
 
-public class CreditCardManagementController {
-    private final CreditCardManagementService cardManagementService;
+public class SpendController {
+    private final SpendService cardManagementService;
 
     @Inject
-    public CreditCardManagementController(CreditCardManagementService cardManagementService) {
+    public SpendController(SpendService cardManagementService) {
         this.cardManagementService = cardManagementService;
     }
 
